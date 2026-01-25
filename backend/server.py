@@ -1002,12 +1002,12 @@ async def seed_database():
         return {"message": "Database already seeded", "course_count": existing}
     
     courses = [
-        # Neo Courses (4-6 hours, no LMS)
+        # Nano Courses (4-6 hours, no LMS)
         {
             "course_id": f"course_{uuid.uuid4().hex[:12]}",
             "title": "Python Fundamentals",
             "description": "Quick introduction to Python programming basics. Perfect for absolute beginners looking to start their coding journey.",
-            "category": "neo",
+            "category": "nano",
             "duration_hours": 5,
             "price": 29.00,
             "image_url": "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800",
@@ -1021,7 +1021,7 @@ async def seed_database():
             "course_id": f"course_{uuid.uuid4().hex[:12]}",
             "title": "Excel for Business",
             "description": "Master essential Excel skills for business analysis and reporting.",
-            "category": "neo",
+            "category": "nano",
             "duration_hours": 4,
             "price": 19.00,
             "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
@@ -1035,7 +1035,7 @@ async def seed_database():
             "course_id": f"course_{uuid.uuid4().hex[:12]}",
             "title": "Communication Skills",
             "description": "Develop professional communication skills for workplace success.",
-            "category": "neo",
+            "category": "nano",
             "duration_hours": 6,
             "price": 25.00,
             "image_url": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
