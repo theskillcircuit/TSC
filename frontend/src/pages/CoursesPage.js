@@ -10,7 +10,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const categories = [
-  { id: 'neo', name: 'Neo', description: '4-6 hours • Quick skill exposure', color: '#3b82f6' },
+  { id: 'nano', name: 'Nano', description: '4-6 hours • Quick skill exposure', color: '#3b82f6' },
   { id: 'sprint', name: 'Sprint', description: '10-15 hours • Hands-on projects', color: '#22c55e' },
   { id: 'pathway', name: 'Pathway', description: '30-40 hours • Portfolio building', color: '#8b5cf6' },
   { id: 'launchpad', name: 'Launchpad', description: '4 months • Career transformation', color: '#f16a2f' }
