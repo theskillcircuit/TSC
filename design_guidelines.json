@@ -1,0 +1,123 @@
+{
+  "brand_identity": {
+    "name": "The Skill Circuit",
+    "personality": "Futuristic, Trustworthy, Outcome-driven, Startup-grade",
+    "theme_strategy": "Light Mode Default (Marketing) / Dark Mode Option (Dashboard)",
+    "typography": {
+      "headings": {
+        "family": "Outfit",
+        "url": "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap",
+        "usage": "Use for all H1-H6. Weight 800 for Hero, 600 for Section Headers. Letter-spacing: -0.02em."
+      },
+      "body": {
+        "family": "Plus Jakarta Sans",
+        "url": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
+        "usage": "Use for paragraphs, UI text, buttons. High legibility."
+      },
+      "mono": {
+        "family": "JetBrains Mono",
+        "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap",
+        "usage": "Use for code snippets, data values, and 'tech' accents."
+      }
+    },
+    "colors": {
+      "primary": {
+        "base": "#053d6c",
+        "hsl": "211 91% 22%",
+        "usage": "Headers, Navigation, Trust Sections, Primary Text"
+      },
+      "accent": {
+        "base": "#f16a2f",
+        "hsl": "18 88% 56%",
+        "usage": "CTAs, Progress Bars, Highlights, Active States"
+      },
+      "neutral": {
+        "background": "#ffffff",
+        "surface": "#f8fafc",
+        "border": "#e2e8f0"
+      },
+      "semantic": {
+        "success": "#10b981",
+        "warning": "#f59e0b",
+        "error": "#ef4444"
+      }
+    }
+  },
+  "layout_system": {
+    "spacing_scale": "p-1, p-2, p-4, p-6, p-8, p-12, p-16, p-20, p-24, p-32",
+    "container_padding": "px-6 md:px-12 lg:px-24",
+    "grids": {
+      "marketing_tetris": "grid grid-cols-1 md:grid-cols-12 gap-8",
+      "dashboard_bento": "grid grid-cols-1 md:grid-cols-4 gap-6"
+    },
+    "radius": "rounded-lg"
+  },
+  "component_rules": {
+    "buttons": {
+      "primary": "bg-[#f16a2f] hover:bg-[#d65a25] text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5",
+      "secondary": "bg-white border-2 border-[#053d6c] text-[#053d6c] hover:bg-[#f8fafc] font-semibold px-8 py-3 rounded-lg transition-all",
+      "ghost": "text-[#053d6c] hover:bg-[#053d6c]/10 font-medium px-4 py-2 rounded-lg"
+    },
+    "cards": {
+      "marketing": "bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 rounded-xl overflow-hidden",
+      "dashboard": "bg-white border border-slate-200 shadow-sm rounded-lg p-6"
+    },
+    "inputs": {
+      "style": "bg-slate-50 border-slate-200 focus:border-[#f16a2f] focus:ring-2 focus:ring-[#f16a2f]/20 rounded-lg h-12 px-4 transition-all"
+    }
+  },
+  "assets": {
+    "images": {
+      "hero_overlay": {
+        "url": "https://images.unsplash.com/photo-1573164713619-24c711fe7878?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwc3R1ZGVudHMlMjBjb2xsYWJvcmF0aW5nJTIwdGVjaG5vbG9neSUyMG9mZmljZXxlbnwwfHx8fDE3NjkzNjc4MDV8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Diverse students collaborating",
+        "usage": "Hero section main visual, masked or framed"
+      },
+      "abstract_bg": {
+        "url": "https://images.unsplash.com/photo-1730025855696-d83fb722bcf3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTN8MHwxfHNlYXJjaHwyfHxmdXR1cmlzdGljJTIwYWJzdHJhY3QlMjB0ZWNobm9sb2d5JTIwbmV0d29yayUyMGJsdWUlMjBvcmFuZ2V8ZW58MHx8fHwxNzY5MzY3ODA3fDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Futuristic blue and orange abstract",
+        "usage": "Background for 'Why Us' or 'Stats' sections, low opacity overlay"
+      },
+      "mentor_feature": {
+        "url": "https://images.unsplash.com/photo-1582601231162-132ca60713d6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtZW50b3IlMjB0ZWFjaGluZyUyMHN0dWRlbnQlMjBsYXB0b3B8ZW58MHx8fHwxNzY5MzY3ODEwfDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Professional mentor",
+        "usage": "About Us or Mentorship section"
+      },
+      "tech_atmosphere": {
+        "url": "https://images.unsplash.com/photo-1581090124321-d19ad6d7cd5a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHwyfHxkaXZlcnNlJTIwc3R1ZGVudHMlMjBjb2xsYWJvcmF0aW5nJTIwdGVjaG5vbG9neSUyMG9mZmljZXxlbnwwfHx8fDE3NjkzNjc4MDV8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Engineers discussing",
+        "usage": "Course catalog headers or 'Launchpad' feature"
+      }
+    },
+    "icons": {
+      "library": "lucide-react",
+      "style": "Stroke width 1.5px, size 20px or 24px"
+    }
+  },
+  "page_instructions": {
+    "home": {
+      "hero": "Split layout. Left: Bold H1 'Master the Circuit of Success', Subtext, Dual CTAs. Right: 'hero_overlay' image with a floating glassmorphism card showing 'Placement Guaranteed'. Background: Subtle 'abstract_bg' pattern.",
+      "usps": "3-column grid. Icons in #f16a2f. Cards with hover lift effect.",
+      "journey": "Horizontal scroll or vertical timeline showing Neo -> Sprint -> Pathway -> Launchpad."
+    },
+    "courses": {
+      "layout": "Sidebar filters (Topic, Duration) + Main Grid of Course Cards.",
+      "tabs": "Prominent pill-shaped tabs for the 4 categories (Neo, Sprint, Pathway, Launchpad).",
+      "card_style": "Image top, Title, Tags (Duration, Level), Price in Accent Color, 'Enroll' button."
+    },
+    "dashboard": {
+      "layout": "Sidebar Navigation (Fixed). Top Header (User Profile, Notifs). Main Content Area (Bento Grid).",
+      "widgets": "Progress Circle (SVG), Upcoming Class (Card with 'Join Zoom' button), Recommended Courses.",
+      "theme": "Clean white background, subtle borders. No heavy shadows."
+    }
+  },
+  "universal_guidelines": [
+    "Use 'Outfit' font for all headings. Do not use Inter.",
+    "Primary CTA buttons must always be #f16a2f (Orange).",
+    "Use generous padding (py-20) for marketing sections.",
+    "Ensure all interactive elements have data-testid attributes.",
+    "Use 'sonner' for toast notifications.",
+    "Do not use gradients for text.",
+    "Glassmorphism: bg-white/70 backdrop-blur-xl border-white/20."
+  ]
+}
