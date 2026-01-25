@@ -196,8 +196,24 @@ const HomePage = () => {
                 className="font-['Outfit'] text-5xl sm:text-6xl lg:text-7xl font-extrabold text-[#053d6c] leading-[1.1] mb-6" 
                 data-testid="hero-title"
               >
-                Transform Your
-                <span className="block gradient-text">Career Destiny</span>
+                <EditableText 
+                  page="home" 
+                  section="hero" 
+                  field="title_line1"
+                  defaultValue="Transform Your"
+                  type="heading"
+                  as="span"
+                  className="block"
+                />
+                <EditableText 
+                  page="home" 
+                  section="hero" 
+                  field="title_line2"
+                  defaultValue="Career Destiny"
+                  type="heading"
+                  as="span"
+                  className="block gradient-text"
+                />
               </motion.h1>
               
               <motion.p 
@@ -205,7 +221,14 @@ const HomePage = () => {
                 className="text-xl text-slate-600 leading-relaxed mb-8 max-w-xl" 
                 data-testid="hero-subtitle"
               >
-                Master in-demand skills, develop winning behaviors, and unlock guaranteed career outcomes. Your transformation starts here.
+                <EditableText 
+                  page="home" 
+                  section="hero" 
+                  field="subtitle"
+                  defaultValue="Master in-demand skills, develop winning behaviors, and unlock guaranteed career outcomes. Your transformation starts here."
+                  type="textarea"
+                  as="span"
+                />
               </motion.p>
               
               <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
