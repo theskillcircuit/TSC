@@ -113,7 +113,7 @@ const Footer = () => {
             <h4 className="font-['Outfit'] font-semibold text-lg mb-6">Programs</h4>
             <ul className="space-y-4">
               {[
-                { name: 'Neo Courses', path: '/courses?category=neo', badge: '4-6 hrs' },
+                { name: 'Nano Courses', path: '/courses?category=nano', badge: '4-6 hrs' },
                 { name: 'Sprint Programs', path: '/courses?category=sprint', badge: '2 days' },
                 { name: 'Pathway Tracks', path: '/courses?category=pathway', badge: '30+ hrs' },
                 { name: 'Launchpad', path: '/courses?category=launchpad', badge: 'Premium' }
