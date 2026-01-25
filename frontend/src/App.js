@@ -80,7 +80,9 @@ const AppRouter = () => {
   }
 
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       {/* Public Routes */}
       <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
       <Route path="/about" element={<MainLayout><AboutPage /></MainLayout>} />
