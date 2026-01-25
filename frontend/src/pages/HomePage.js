@@ -151,6 +151,9 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen overflow-hidden" data-testid="home-page">
+      {/* Admin Edit Banner */}
+      <AdminEditBanner />
+      
       {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50" data-testid="hero-section">
         {/* Animated Background Elements */}
