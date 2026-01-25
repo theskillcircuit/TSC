@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { Button } from '../components/ui/button';
+import { EditableText, EditableImage, AdminEditBanner } from '../components/EditableContent';
 import { 
   ArrowRight, Zap, Brain, Target, ChevronRight, Star, Users, 
   Briefcase, Play, CheckCircle, Award, Rocket, GraduationCap,
