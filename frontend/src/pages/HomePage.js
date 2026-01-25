@@ -107,7 +107,7 @@ const HomePage = () => {
   ];
 
   const journeySteps = [
-    { name: "Neo", duration: "4-6 hrs", description: "Quick skill exposure", icon: Rocket, color: "#3b82f6" },
+    { name: "Nano", duration: "4-6 hrs", description: "Quick skill exposure", icon: Rocket, color: "#3b82f6" },
     { name: "Sprint", duration: "2 days", description: "Hands-on projects", icon: Zap, color: "#22c55e" },
     { name: "Pathway", duration: "30-40 hrs", description: "Portfolio building", icon: TrendingUp, color: "#8b5cf6" },
     { name: "Launchpad", duration: "4 months", description: "Career transformation", icon: GraduationCap, color: "#f16a2f" }
