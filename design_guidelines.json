@@ -1,123 +1,111 @@
 {
   "brand_identity": {
     "name": "The Skill Circuit",
-    "personality": "Futuristic, Trustworthy, Outcome-driven, Startup-grade",
-    "theme_strategy": "Light Mode Default (Marketing) / Dark Mode Option (Dashboard)",
-    "typography": {
-      "headings": {
-        "family": "Outfit",
-        "url": "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap",
-        "usage": "Use for all H1-H6. Weight 800 for Hero, 600 for Section Headers. Letter-spacing: -0.02em."
-      },
-      "body": {
-        "family": "Plus Jakarta Sans",
-        "url": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
-        "usage": "Use for paragraphs, UI text, buttons. High legibility."
-      },
-      "mono": {
-        "family": "JetBrains Mono",
-        "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap",
-        "usage": "Use for code snippets, data values, and 'tech' accents."
-      }
+    "tone": "Energetic, Future-Ready, Premium, Student-Centric",
+    "archetype": "The Performance Pro (Athletic/Skill) + Vibrant Play",
+    "theme_strategy": "Light Mode Dominant with Deep Blue (#053d6c) Contrast Sections. No boring white pages - use soft grays and dynamic layouts."
+  },
+  "typography": {
+    "headings": {
+      "font_family": "Outfit, sans-serif",
+      "weights": ["600", "800"],
+      "tracking": "tracking-tight",
+      "usage": "Use for all H1-H3. H1 must be text-5xl to text-7xl. H2 must be text-4xl.",
+      "style": "Bold, expressive, tight letter spacing. Avoid 'Inter' for headings."
     },
-    "colors": {
-      "primary": {
-        "base": "#053d6c",
-        "hsl": "211 91% 22%",
-        "usage": "Headers, Navigation, Trust Sections, Primary Text"
-      },
-      "accent": {
-        "base": "#f16a2f",
-        "hsl": "18 88% 56%",
-        "usage": "CTAs, Progress Bars, Highlights, Active States"
-      },
-      "neutral": {
-        "background": "#ffffff",
-        "surface": "#f8fafc",
-        "border": "#e2e8f0"
-      },
-      "semantic": {
-        "success": "#10b981",
-        "warning": "#f59e0b",
-        "error": "#ef4444"
-      }
+    "body": {
+      "font_family": "Plus Jakarta Sans, sans-serif",
+      "weights": ["400", "500"],
+      "usage": "Use for all paragraphs and UI text. Keep readable with relaxed line-height."
+    },
+    "accent": {
+      "font_family": "JetBrains Mono, monospace",
+      "usage": "Use for tags, code snippets, and 'tech' accents."
     }
   },
-  "layout_system": {
-    "spacing_scale": "p-1, p-2, p-4, p-6, p-8, p-12, p-16, p-20, p-24, p-32",
-    "container_padding": "px-6 md:px-12 lg:px-24",
-    "grids": {
-      "marketing_tetris": "grid grid-cols-1 md:grid-cols-12 gap-8",
-      "dashboard_bento": "grid grid-cols-1 md:grid-cols-4 gap-6"
+  "colors": {
+    "primary": {
+      "main": "#053d6c",
+      "light": "#0a4e8a",
+      "dark": "#032b4d",
+      "usage": "Primary buttons, dark section backgrounds, text headings."
     },
-    "radius": "rounded-lg"
+    "accent": {
+      "main": "#f16a2f",
+      "light": "#ff8f5c",
+      "glow": "rgba(241, 106, 47, 0.4)",
+      "usage": "CTAs, highlights, gradients, floating elements."
+    },
+    "neutral": {
+      "background": "#ffffff",
+      "surface": "#f8fafc",
+      "border": "#e2e8f0",
+      "text_primary": "#0f172a",
+      "text_secondary": "#64748b"
+    },
+    "gradients": {
+      "hero_glow": "radial-gradient(circle at 50% 50%, rgba(241, 106, 47, 0.15), transparent 70%)",
+      "brand_mesh": "linear-gradient(135deg, #053d6c 0%, #0a4e8a 100%)",
+      "text_gradient": "bg-gradient-to-r from-[#053d6c] to-[#f16a2f] bg-clip-text text-transparent"
+    }
   },
-  "component_rules": {
+  "layout_strategies": {
+    "spacing": {
+      "base": "Use 2-3x more spacing than standard. Section padding: py-20 or py-32.",
+      "container": "max-w-7xl mx-auto px-6 md:px-12"
+    },
+    "grids": {
+      "bento_grid": "Use for features/courses. Mix col-span-1 and col-span-2 items. Avoid uniform grids.",
+      "tetris_hero": "Asymmetric grid for hero images. Main image col-span-8, secondary col-span-4."
+    },
+    "z_index": "Layer elements. Use negative z-index for decorative blobs/gradients."
+  },
+  "components": {
     "buttons": {
-      "primary": "bg-[#f16a2f] hover:bg-[#d65a25] text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5",
-      "secondary": "bg-white border-2 border-[#053d6c] text-[#053d6c] hover:bg-[#f8fafc] font-semibold px-8 py-3 rounded-lg transition-all",
-      "ghost": "text-[#053d6c] hover:bg-[#053d6c]/10 font-medium px-4 py-2 rounded-lg"
+      "primary": "Pill-shaped or rounded-lg. Bg-accent (#f16a2f). Hover: Lift + Shadow. MUST have 'pulse-orange' animation on key CTAs.",
+      "secondary": "Border-2 border-primary text-primary. Hover: Bg-primary/5.",
+      "ghost": "Text-primary hover:text-accent transition-colors."
     },
     "cards": {
-      "marketing": "bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 rounded-xl overflow-hidden",
-      "dashboard": "bg-white border border-slate-200 shadow-sm rounded-lg p-6"
+      "style": "Glassmorphism (bg-white/70 backdrop-blur-xl) OR Clean White with heavy shadow (shadow-xl).",
+      "hover": "Translate-y-2 and shadow-2xl transition-all duration-300.",
+      "border": "1px solid rgba(255,255,255,0.5) or border-slate-100."
     },
-    "inputs": {
-      "style": "bg-slate-50 border-slate-200 focus:border-[#f16a2f] focus:ring-2 focus:ring-[#f16a2f]/20 rounded-lg h-12 px-4 transition-all"
+    "sections": {
+      "hero": "Full height (min-h-[90vh]). Split layout or centered with massive typography. Animated background elements.",
+      "marquee": "Use for partners. Infinite scroll text or icons. Opacity 50%.",
+      "testimonials": "Carousel or Masonry grid. Focus on student faces."
     }
+  },
+  "motion": {
+    "library": "framer-motion",
+    "rules": [
+      "All interactive elements must have hover states.",
+      "Scroll animations: Fade up + Scale in for cards.",
+      "Hero: Staggered entrance for text and images.",
+      "Parallax: Use for background shapes/blobs."
+    ],
+    "micro_interactions": "Buttons scale 0.98 on click. Links have underline slide animation."
   },
   "assets": {
     "images": {
-      "hero_overlay": {
-        "url": "https://images.unsplash.com/photo-1573164713619-24c711fe7878?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwc3R1ZGVudHMlMjBjb2xsYWJvcmF0aW5nJTIwdGVjaG5vbG9neSUyMG9mZmljZXxlbnwwfHx8fDE3NjkzNjc4MDV8MA&ixlib=rb-4.1.0&q=85",
-        "alt": "Diverse students collaborating",
-        "usage": "Hero section main visual, masked or framed"
-      },
-      "abstract_bg": {
-        "url": "https://images.unsplash.com/photo-1730025855696-d83fb722bcf3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTN8MHwxfHNlYXJjaHwyfHxmdXR1cmlzdGljJTIwYWJzdHJhY3QlMjB0ZWNobm9sb2d5JTIwbmV0d29yayUyMGJsdWUlMjBvcmFuZ2V8ZW58MHx8fHwxNzY5MzY3ODA3fDA&ixlib=rb-4.1.0&q=85",
-        "alt": "Futuristic blue and orange abstract",
-        "usage": "Background for 'Why Us' or 'Stats' sections, low opacity overlay"
-      },
-      "mentor_feature": {
-        "url": "https://images.unsplash.com/photo-1582601231162-132ca60713d6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtZW50b3IlMjB0ZWFjaGluZyUyMHN0dWRlbnQlMjBsYXB0b3B8ZW58MHx8fHwxNzY5MzY3ODEwfDA&ixlib=rb-4.1.0&q=85",
-        "alt": "Professional mentor",
-        "usage": "About Us or Mentorship section"
-      },
-      "tech_atmosphere": {
-        "url": "https://images.unsplash.com/photo-1581090124321-d19ad6d7cd5a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHwyfHxkaXZlcnNlJTIwc3R1ZGVudHMlMjBjb2xsYWJvcmF0aW5nJTIwdGVjaG5vbG9neSUyMG9mZmljZXxlbnwwfHx8fDE3NjkzNjc4MDV8MA&ixlib=rb-4.1.0&q=85",
-        "alt": "Engineers discussing",
-        "usage": "Course catalog headers or 'Launchpad' feature"
-      }
+      "hero_main": "https://images.unsplash.com/photo-1760062744828-64801c56a039?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "hero_secondary": "https://images.pexels.com/photos/159775/library-la-trobe-study-students-159775.jpeg",
+      "success_story": "https://images.pexels.com/photos/7988238/pexels-photo-7988238.jpeg",
+      "community": "https://images.unsplash.com/photo-1754531976838-436a70636c96?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "abstract_bg": "https://images.unsplash.com/photo-1660058550844-02d4eaa79667?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "course_bg": "https://images.unsplash.com/photo-1657983794129-95527a7b7738?crop=entropy&cs=srgb&fm=jpg&q=85"
     },
-    "icons": {
-      "library": "lucide-react",
-      "style": "Stroke width 1.5px, size 20px or 24px"
-    }
+    "icons": "Use lucide-react. For 'tech' vibes, use simple geometric icons."
   },
-  "page_instructions": {
-    "home": {
-      "hero": "Split layout. Left: Bold H1 'Master the Circuit of Success', Subtext, Dual CTAs. Right: 'hero_overlay' image with a floating glassmorphism card showing 'Placement Guaranteed'. Background: Subtle 'abstract_bg' pattern.",
-      "usps": "3-column grid. Icons in #f16a2f. Cards with hover lift effect.",
-      "journey": "Horizontal scroll or vertical timeline showing Neo -> Sprint -> Pathway -> Launchpad."
-    },
-    "courses": {
-      "layout": "Sidebar filters (Topic, Duration) + Main Grid of Course Cards.",
-      "tabs": "Prominent pill-shaped tabs for the 4 categories (Neo, Sprint, Pathway, Launchpad).",
-      "card_style": "Image top, Title, Tags (Duration, Level), Price in Accent Color, 'Enroll' button."
-    },
-    "dashboard": {
-      "layout": "Sidebar Navigation (Fixed). Top Header (User Profile, Notifs). Main Content Area (Bento Grid).",
-      "widgets": "Progress Circle (SVG), Upcoming Class (Card with 'Join Zoom' button), Recommended Courses.",
-      "theme": "Clean white background, subtle borders. No heavy shadows."
-    }
-  },
-  "universal_guidelines": [
-    "Use 'Outfit' font for all headings. Do not use Inter.",
-    "Primary CTA buttons must always be #f16a2f (Orange).",
-    "Use generous padding (py-20) for marketing sections.",
-    "Ensure all interactive elements have data-testid attributes.",
-    "Use 'sonner' for toast notifications.",
-    "Do not use gradients for text.",
-    "Glassmorphism: bg-white/70 backdrop-blur-xl border-white/20."
-  ]
+  "universal_rules": [
+    "DO NOT use generic 'Inter' font for headings.",
+    "DO NOT use full-screen gradients that look cheap. Use subtle mesh or radial glows.",
+    "DO NOT center everything. Use asymmetry for interest.",
+    "ALWAYS add 'data-testid' to interactive elements.",
+    "ALWAYS use 'sonner' for toasts.",
+    "Ensure text contrast meets WCAG AA standards (4.5:1).",
+    "Mobile First: Stack grids on mobile, expand on desktop."
+  ],
+  "instructions_to_main_agent": "You are building the 'The Skill Circuit' redesign. Focus on the Home page first. Make it LONG (scrolling) with at least 6-7 distinct sections (Hero, Partners, Stats, Courses, Features, Testimonials, CTA). Use the provided images. Implement the 'pulse' animation for the main CTA. Use the 'Outfit' font for all headings. Make it look like a Series A startup, not a school project."
 }
