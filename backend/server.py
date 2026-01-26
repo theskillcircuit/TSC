@@ -674,7 +674,7 @@ async def update_module_progress(
 
 @api_router.post("/payments/checkout")
 async def create_checkout(checkout: CheckoutRequest, current_user: dict = Depends(get_current_user)):
-    from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionRequest
+    import stripe
     
     course = await db.courses.find_one({"course_id": checkout.course_id}, {"_id": 0})
     if not course:
@@ -688,17 +688,25 @@ async def create_checkout(checkout: CheckoutRequest, current_user: dict = Depend
     if existing:
         raise HTTPException(status_code=400, detail="Already enrolled in this course")
     
-    api_key = os.environ.get('STRIPE_API_KEY')
-    webhook_url = f"{checkout.origin_url}/api/webhook/stripe"
-    
-    stripe_checkout = StripeCheckout(api_key=api_key, webhook_url=webhook_url)
+    stripe.api_key = os.environ.get('STRIPE_API_KEY')
     
     success_url = f"{checkout.origin_url}/payment/success?session_id={{CHECKOUT_SESSION_ID}}"
     cancel_url = f"{checkout.origin_url}/courses/{checkout.course_id}"
     
-    checkout_request = CheckoutSessionRequest(
-        amount=float(course['price']),
-        currency="usd",
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {
+                    'name': course['title'],
+                    'description': course.get('description', '')[:500],
+                },
+                'unit_amount': int(float(course['price']) * 100),
+            },
+            'quantity': 1,
+        }],
+        mode='payment',
         success_url=success_url,
         cancel_url=cancel_url,
         metadata={
@@ -708,13 +716,11 @@ async def create_checkout(checkout: CheckoutRequest, current_user: dict = Depend
         }
     )
     
-    session = await stripe_checkout.create_checkout_session(checkout_request)
-    
     # Create payment transaction record
     transaction_id = f"txn_{uuid.uuid4().hex[:12]}"
     await db.payment_transactions.insert_one({
         "transaction_id": transaction_id,
-        "session_id": session.session_id,
+        "session_id": session.id,
         "user_id": current_user['user_id'],
         "course_id": checkout.course_id,
         "amount": float(course['price']),
@@ -723,21 +729,19 @@ async def create_checkout(checkout: CheckoutRequest, current_user: dict = Depend
         "created_at": datetime.now(timezone.utc).isoformat()
     })
     
-    return {"url": session.url, "session_id": session.session_id}
+    return {"url": session.url, "session_id": session.id}
 
 @api_router.get("/payments/status/{session_id}")
 async def get_payment_status(session_id: str, current_user: dict = Depends(get_current_user)):
-    from emergentintegrations.payments.stripe.checkout import StripeCheckout
+    import stripe
+    stripe.api_key = os.environ.get('STRIPE_API_KEY')
     
-    api_key = os.environ.get('STRIPE_API_KEY')
-    stripe_checkout = StripeCheckout(api_key=api_key, webhook_url="")
-    
-    status = await stripe_checkout.get_checkout_status(session_id)
+    session = stripe.checkout.Session.retrieve(session_id)
     
     # Update transaction and create enrollment if paid
     transaction = await db.payment_transactions.find_one({"session_id": session_id})
     
-    if transaction and status.payment_status == "paid" and transaction.get('payment_status') != 'paid':
+    if transaction and session.payment_status == "paid" and transaction.get('payment_status') != 'paid':
         await db.payment_transactions.update_one(
             {"session_id": session_id},
             {"$set": {
@@ -759,55 +763,57 @@ async def get_payment_status(session_id: str, current_user: dict = Depends(get_c
         })
     
     return {
-        "status": status.status,
-        "payment_status": status.payment_status,
-        "amount_total": status.amount_total,
-        "currency": status.currency
+        "status": session.status,
+        "payment_status": session.payment_status,
+        "amount_total": session.amount_total,
+        "currency": session.currency
     }
 
 @api_router.post("/webhook/stripe")
 async def stripe_webhook(request: Request):
-    from emergentintegrations.payments.stripe.checkout import StripeCheckout
+    import stripe
+    stripe.api_key = os.environ.get('STRIPE_API_KEY')
     
     body = await request.body()
-    signature = request.headers.get("Stripe-Signature")
-    
-    api_key = os.environ.get('STRIPE_API_KEY')
-    stripe_checkout = StripeCheckout(api_key=api_key, webhook_url="")
     
     try:
-        webhook_response = await stripe_checkout.handle_webhook(body, signature)
+        event = stripe.Event.construct_from(
+            stripe.util.json.loads(body), stripe.api_key
+        )
         
-        if webhook_response.payment_status == "paid":
-            session_id = webhook_response.session_id
-            transaction = await db.payment_transactions.find_one({"session_id": session_id})
+        if event.type == 'checkout.session.completed':
+            session = event.data.object
+            session_id = session.id
             
-            if transaction and transaction.get('payment_status') != 'paid':
-                await db.payment_transactions.update_one(
-                    {"session_id": session_id},
-                    {"$set": {
-                        "payment_status": "paid",
-                        "paid_at": datetime.now(timezone.utc).isoformat()
-                    }}
-                )
+            if session.payment_status == "paid":
+                transaction = await db.payment_transactions.find_one({"session_id": session_id})
                 
-                # Create enrollment if not exists
-                existing = await db.enrollments.find_one({
-                    "user_id": transaction['user_id'],
-                    "course_id": transaction['course_id']
-                })
-                
-                if not existing:
-                    enrollment_id = f"enroll_{uuid.uuid4().hex[:12]}"
-                    await db.enrollments.insert_one({
-                        "enrollment_id": enrollment_id,
+                if transaction and transaction.get('payment_status') != 'paid':
+                    await db.payment_transactions.update_one(
+                        {"session_id": session_id},
+                        {"$set": {
+                            "payment_status": "paid",
+                            "paid_at": datetime.now(timezone.utc).isoformat()
+                        }}
+                    )
+                    
+                    # Create enrollment if not exists
+                    existing = await db.enrollments.find_one({
                         "user_id": transaction['user_id'],
-                        "course_id": transaction['course_id'],
-                        "payment_id": transaction['transaction_id'],
-                        "status": "active",
-                        "progress_percent": 0,
-                        "enrolled_at": datetime.now(timezone.utc).isoformat()
+                        "course_id": transaction['course_id']
                     })
+                    
+                    if not existing:
+                        enrollment_id = f"enroll_{uuid.uuid4().hex[:12]}"
+                        await db.enrollments.insert_one({
+                            "enrollment_id": enrollment_id,
+                            "user_id": transaction['user_id'],
+                            "course_id": transaction['course_id'],
+                            "payment_id": transaction['transaction_id'],
+                            "status": "active",
+                            "progress_percent": 0,
+                            "enrolled_at": datetime.now(timezone.utc).isoformat()
+                        })
         
         return {"status": "success"}
     except Exception as e:
