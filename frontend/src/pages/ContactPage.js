@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
+import { EditableText, AdminEditBanner } from '../components/EditableContent';
 import { toast } from 'sonner';
 import { Mail, Phone, MapPin, Send, MessageSquare } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -19,10 +26,7 @@ const ContactPage = () => {
   const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -39,7 +43,6 @@ const ContactPage = () => {
       toast.success('Message sent successfully! We\'ll get back to you soon.');
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
-      console.error('Error submitting contact form:', error);
       toast.error('Failed to send message. Please try again.');
     } finally {
       setSubmitting(false);
@@ -47,38 +50,44 @@ const ContactPage = () => {
   };
 
   const contactInfo = [
-    {
-      icon: Mail,
-      label: 'Email',
-      value: 'hello@skillcircuit.com',
-      href: 'mailto:hello@skillcircuit.com'
-    },
-    {
-      icon: Phone,
-      label: 'Phone',
-      value: '+91 98765 43210',
-      href: 'tel:+919876543210'
-    },
-    {
-      icon: MapPin,
-      label: 'Location',
-      value: 'Bangalore, India',
-      href: '#'
-    }
+    { icon: Mail, label: 'Email', value: 'theskillcircuit@gmail.com', href: 'mailto:theskillcircuit@gmail.com' },
+    { icon: Phone, label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
+    { icon: MapPin, label: 'Location', value: 'Bangalore, India', href: '#' }
   ];
 
   return (
     <div className="min-h-screen bg-slate-50" data-testid="contact-page">
+      <AdminEditBanner />
+      
       {/* Hero Section */}
       <section className="bg-[#053d6c] py-16 px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          className="max-w-4xl mx-auto text-center"
+        >
           <h1 className="font-['Outfit'] text-4xl sm:text-5xl font-bold text-white mb-4" data-testid="contact-title">
-            Get in Touch
+            <EditableText 
+              page="contact" 
+              section="hero" 
+              field="title"
+              defaultValue="Get in Touch"
+              type="heading"
+              as="span"
+            />
           </h1>
           <p className="text-slate-300 text-lg">
-            Have questions? We're here to help you start your transformation journey.
+            <EditableText 
+              page="contact" 
+              section="hero" 
+              field="subtitle"
+              defaultValue="Have questions? We're here to help you start your transformation journey."
+              type="textarea"
+              as="span"
+            />
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* Contact Section */}
@@ -86,13 +95,18 @@ const ContactPage = () => {
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Info */}
-            <div className="space-y-8">
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              variants={fadeInUp}
+              className="space-y-8"
+            >
               <div>
                 <h2 className="font-['Outfit'] text-2xl font-bold text-[#053d6c] mb-4">
                   Contact Information
                 </h2>
                 <p className="text-slate-600">
-                  Reach out to us through any of these channels. Our team typically responds within 24 hours.
+                  Reach out to us through any of these channels. We typically respond within 24 hours.
                 </p>
               </div>
 
@@ -102,7 +116,6 @@ const ContactPage = () => {
                     key={index}
                     href={info.href}
                     className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
-                    data-testid={`contact-info-${info.label.toLowerCase()}`}
                   >
                     <div className="w-12 h-12 rounded-lg bg-[#f16a2f]/10 flex items-center justify-center flex-shrink-0">
                       <info.icon className="w-6 h-6 text-[#f16a2f]" />
@@ -122,7 +135,7 @@ const ContactPage = () => {
                   <h3 className="font-['Outfit'] font-semibold">Quick Connect</h3>
                 </div>
                 <p className="text-slate-300 text-sm mb-4">
-                  Want instant support? Chat with us on WhatsApp for quick responses.
+                  Want instant support? Chat with us on WhatsApp.
                 </p>
                 <a 
                   href="https://wa.me/919876543210"
@@ -133,10 +146,15 @@ const ContactPage = () => {
                   WhatsApp Us
                 </a>
               </div>
-            </div>
+            </motion.div>
 
             {/* Contact Form */}
-            <div className="lg:col-span-2">
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              variants={fadeInUp}
+              className="lg:col-span-2"
+            >
               <div className="bg-white rounded-xl p-8 shadow-lg" data-testid="contact-form">
                 <h2 className="font-['Outfit'] text-2xl font-bold text-[#053d6c] mb-6">
                   Send us a Message
@@ -209,9 +227,7 @@ const ContactPage = () => {
                     className="btn-primary w-full sm:w-auto"
                     data-testid="contact-submit-btn"
                   >
-                    {submitting ? (
-                      'Sending...'
-                    ) : (
+                    {submitting ? 'Sending...' : (
                       <>
                         Send Message
                         <Send className="ml-2 w-4 h-4" />
@@ -220,7 +236,7 @@ const ContactPage = () => {
                   </Button>
                 </form>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -229,35 +245,26 @@ const ContactPage = () => {
       <section className="py-16 px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-['Outfit'] text-2xl font-bold text-[#053d6c] mb-8 text-center">
-            Frequently Asked Questions
+            <EditableText 
+              page="contact" 
+              section="faq" 
+              field="title"
+              defaultValue="Frequently Asked Questions"
+              type="heading"
+              as="span"
+            />
           </h2>
           
           <div className="space-y-4">
             {[
-              {
-                q: "How do I enroll in a course?",
-                a: "Simply browse our courses, select the one you're interested in, and click 'Enroll Now'. You can pay securely using your preferred payment method."
-              },
-              {
-                q: "Do you offer refunds?",
-                a: "Yes, we offer a 30-day money-back guarantee if you're not satisfied with your course. Contact our support team to initiate a refund."
-              },
-              {
-                q: "What is the Launchpad program?",
-                a: "Launchpad is our flagship 4-month program that includes comprehensive training, internship placement, and guaranteed interview opportunities with our partner companies."
-              },
-              {
-                q: "Can I upgrade from Sprint to Pathway?",
-                a: "Absolutely! You can upgrade your enrollment at any time. The price difference will be adjusted, and your progress will be preserved."
-              }
+              { q: "How do I enroll in a course?", a: "Browse our courses, select the one you're interested in, and click 'Enroll Now'." },
+              { q: "Do you offer refunds?", a: "Yes, we offer a 30-day money-back guarantee if you're not satisfied." },
+              { q: "What is the Launchpad program?", a: "Launchpad is our flagship 4-month program with guaranteed interview opportunities." },
+              { q: "Can I upgrade from Sprint to Pathway?", a: "Absolutely! You can upgrade at any time with price adjustment." }
             ].map((faq, index) => (
               <div key={index} className="bg-slate-50 rounded-xl p-6">
-                <h3 className="font-['Outfit'] font-semibold text-[#053d6c] mb-2">
-                  {faq.q}
-                </h3>
-                <p className="text-slate-600 text-sm">
-                  {faq.a}
-                </p>
+                <h3 className="font-['Outfit'] font-semibold text-[#053d6c] mb-2">{faq.q}</h3>
+                <p className="text-slate-600 text-sm">{faq.a}</p>
               </div>
             ))}
           </div>
