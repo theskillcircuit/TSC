@@ -115,10 +115,34 @@ const CoursesPage = () => {
               50+ Industry-Ready Courses
             </motion.span>
             <h1 className="font-['Outfit'] text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6" data-testid="courses-title">
-              Find Your Perfect <span className="text-[#f16a2f]">Learning Path</span>
+              <EditableText 
+                page="courses" 
+                section="hero" 
+                field="title"
+                defaultValue="Find Your Perfect"
+                type="heading"
+                as="span"
+              />{" "}
+              <span className="text-[#f16a2f]">
+                <EditableText 
+                  page="courses" 
+                  section="hero" 
+                  field="title_highlight"
+                  defaultValue="Learning Path"
+                  type="heading"
+                  as="span"
+                />
+              </span>
             </h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              From quick skill boosters to comprehensive career transformation programs. Choose your adventure.
+              <EditableText 
+                page="courses" 
+                section="hero" 
+                field="subtitle"
+                defaultValue="From quick skill boosters to comprehensive career transformation programs. Choose your adventure."
+                type="textarea"
+                as="span"
+              />
             </p>
           </motion.div>
         </div>
