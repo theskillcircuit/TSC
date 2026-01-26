@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Facebook, Twitter, Linkedin, Instagram, Youtube, Mail, Phone, MapPin, ArrowRight, Send } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
+import { useAuth } from '../context/AuthContext';
+import { EditableText, EditableImage } from './EditableContent';
 
 const Footer = () => {
   const [email, setEmail] = React.useState('');
