@@ -178,63 +178,59 @@ const HomePage = () => {
       <AdminEditBanner />
       
       {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50" data-testid="hero-section">
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-20 sm:pt-24" data-testid="hero-section">
         {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden">
-          <motion.div className="absolute top-20 -right-20 w-[600px] h-[600px] rounded-full bg-[#f16a2f]/10 blur-3xl" animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }} transition={{ duration: 20, repeat: Infinity }} />
-          <motion.div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#053d6c]/10 blur-3xl" animate={{ scale: [1.2, 1, 1.2], rotate: [0, -90, 0] }} transition={{ duration: 15, repeat: Infinity }} />
+          <motion.div className="absolute top-20 -right-20 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] rounded-full bg-[#f16a2f]/10 blur-3xl" animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }} transition={{ duration: 20, repeat: Infinity }} />
+          <motion.div className="absolute -bottom-40 -left-40 w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] rounded-full bg-[#053d6c]/10 blur-3xl" animate={{ scale: [1.2, 1, 1.2], rotate: [0, -90, 0] }} transition={{ duration: 15, repeat: Infinity }} />
         </div>
         
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="max-w-7xl mx-auto px-6 lg:px-12 py-20 lg:py-32 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-16 lg:py-32 relative z-10 w-full">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
             <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
               {/* Badge */}
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f16a2f]/10 text-[#f16a2f] text-sm font-semibold mb-6 border border-[#f16a2f]/20">
-                <Star className="w-4 h-4 fill-[#f16a2f]" />
-                <EditableText page="home" section="hero" field="badge" defaultValue={defaults.hero.badge} type="text" as="span" />
+              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#f16a2f]/10 text-[#f16a2f] text-xs sm:text-sm font-semibold mb-4 sm:mb-6 border border-[#f16a2f]/20">
+                <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-[#f16a2f]" />
+                <span>Rated 4.9/5 by 5000+ students</span>
               </motion.div>
               
               {/* Title */}
-              <motion.h1 variants={fadeInUp} className="font-['Outfit'] text-5xl sm:text-6xl lg:text-7xl font-extrabold text-[#053d6c] leading-[1.1] mb-6">
-                <EditableText page="home" section="hero" field="title_line1" defaultValue={defaults.hero.title_line1} type="heading" as="span" className="block" />
-                <EditableText page="home" section="hero" field="title_line2" defaultValue={defaults.hero.title_line2} type="heading" as="span" className="block gradient-text" />
+              <motion.h1 variants={fadeInUp} className="font-['Outfit'] text-3xl sm:text-5xl lg:text-7xl font-extrabold text-[#053d6c] leading-[1.1] mb-4 sm:mb-6">
+                <span className="block">Transform Your</span>
+                <span className="block gradient-text">Career Destiny</span>
               </motion.h1>
               
               {/* Subtitle */}
-              <motion.p variants={fadeInUp} className="text-xl text-slate-600 leading-relaxed mb-8 max-w-xl">
-                <EditableText page="home" section="hero" field="subtitle" defaultValue={defaults.hero.subtitle} type="textarea" as="span" />
+              <motion.p variants={fadeInUp} className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-6 sm:mb-8 max-w-xl">
+                Master in-demand skills, develop winning behaviors, and unlock guaranteed career outcomes. Your transformation starts here.
               </motion.p>
               
               {/* CTAs */}
-              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
-                <Link to="/courses">
-                  <Button className="btn-primary text-lg px-10 py-5 h-auto animate-pulse-orange">
-                    <EditableText page="home" section="hero" field="cta_primary" defaultValue={defaults.hero.cta_primary} type="text" as="span" />
-                    <ArrowRight className="ml-2 w-5 h-5" />
+              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <Link to="/courses" className="w-full sm:w-auto">
+                  <Button className="btn-primary text-sm sm:text-lg px-6 sm:px-10 py-3 sm:py-5 h-auto w-full sm:w-auto">
+                    Explore Courses
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
                 </Link>
-                <Link to="/about">
-                  <Button variant="outline" className="btn-secondary text-lg px-10 py-5 h-auto">
-                    <EditableText page="home" section="hero" field="cta_secondary" defaultValue={defaults.hero.cta_secondary} type="text" as="span" />
-                    <Play className="ml-2 w-5 h-5" />
+                <Link to="/about" className="w-full sm:w-auto">
+                  <Button variant="outline" className="btn-secondary text-sm sm:text-lg px-6 sm:px-10 py-3 sm:py-5 h-auto w-full sm:w-auto">
+                    Watch Our Story
+                    <Play className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
                 </Link>
               </motion.div>
               
               {/* Trust */}
-              <motion.div variants={fadeInUp} className="flex items-center gap-6 mt-10 pt-10 border-t border-slate-200">
-                <div className="flex -space-x-3">
+              <motion.div variants={fadeInUp} className="flex items-center gap-4 sm:gap-6 mt-8 sm:mt-10 pt-6 sm:pt-10 border-t border-slate-200">
+                <div className="flex -space-x-2 sm:-space-x-3">
                   {[1,2,3,4,5].map((i) => (
-                    <img key={i} src={`https://randomuser.me/api/portraits/${i % 2 === 0 ? 'women' : 'men'}/${20 + i}.jpg`} alt="Student" className="w-10 h-10 rounded-full border-2 border-white shadow-md" />
+                    <img key={i} src={`https://randomuser.me/api/portraits/${i % 2 === 0 ? 'women' : 'men'}/${20 + i}.jpg`} alt="Student" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white shadow-md" />
                   ))}
                 </div>
                 <div>
-                  <p className="font-semibold text-[#053d6c]">
-                    <EditableText page="home" section="hero" field="trust_text" defaultValue={defaults.hero.trust_text} type="text" as="span" />
-                  </p>
-                  <p className="text-sm text-slate-500">
-                    <EditableText page="home" section="hero" field="trust_subtext" defaultValue={defaults.hero.trust_subtext} type="text" as="span" />
-                  </p>
+                  <p className="font-semibold text-[#053d6c] text-sm sm:text-base">Join 5,000+ learners</p>
+                  <p className="text-xs sm:text-sm text-slate-500">Already transforming careers</p>
                 </div>
               </motion.div>
             </motion.div>
