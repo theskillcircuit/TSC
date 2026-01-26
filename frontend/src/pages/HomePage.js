@@ -139,7 +139,7 @@ const HomePage = () => {
   ];
 
   const partners = [
-    "Google", "Microsoft", "Amazon", "Meta", "Netflix", "Uber", "Airbnb", "Stripe"
+    "USDC random", "random", "Hello", "HREF", "ALOK", "NAMAN", "MOTILAL", "USDC"
   ];
 
   const stats = [
