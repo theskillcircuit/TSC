@@ -4,6 +4,7 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
+import { EditableText, AdminEditBanner } from '../components/EditableContent';
 import { Clock, Star, Users, ArrowRight, CheckCircle, Sparkles, TrendingUp } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
