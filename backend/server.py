@@ -208,7 +208,7 @@ async def get_admin_user(current_user: dict = Depends(get_current_user)):
 async def get_optional_user(request: Request, credentials = Depends(security)):
     try:
         return await get_current_user(request, credentials)
-    except:
+    except Exception:
         return None
 
 # ========================
@@ -647,7 +647,6 @@ async def update_module_progress(
     )
     
     # Update enrollment progress percentage
-    course = await db.courses.find_one({"course_id": course_id})
     weeks = await db.weeks.find({"course_id": course_id}).to_list(100)
     total_modules = 0
     for week in weeks:
