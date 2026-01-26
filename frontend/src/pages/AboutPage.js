@@ -1,50 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+import { EditableText, EditableImage, AdminEditBanner } from '../components/EditableContent';
 import { Target, Users, Award, Heart, Lightbulb, Rocket } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+};
+
 const AboutPage = () => {
-  const [cmsContent, setCmsContent] = useState(null);
-
-  useEffect(() => {
-    const fetchCMS = async () => {
-      try {
-        const response = await axios.get(`${API}/cms/about`);
-        setCmsContent(response.data);
-      } catch (error) {
-        console.error('Error fetching CMS content:', error);
-      }
-    };
-    fetchCMS();
-  }, []);
-
-  const heroTitle = cmsContent?.sections?.hero?.title || "Redefining Employability";
-  const heroSubtitle = cmsContent?.sections?.hero?.subtitle || "We believe skills alone aren't enough. True career success comes from combining technical expertise with behavioral transformation.";
-  const missionText = cmsContent?.sections?.mission?.text || "To embed behavioral change and industry co-creation at the core of graduate transformation — shaping professionals, strengthening education, and serving industry with talent that delivers and endures.";
-
   const values = [
-    {
-      icon: Target,
-      title: "Outcome-Driven",
-      description: "Every program is designed with clear, measurable outcomes. We don't just teach; we transform careers."
-    },
-    {
-      icon: Heart,
-      title: "Student-First",
-      description: "Our students' success is our success. Every decision we make puts their growth and opportunities first."
-    },
-    {
-      icon: Lightbulb,
-      title: "Innovation",
-      description: "We constantly evolve our curriculum and methods to stay ahead of industry demands."
-    },
-    {
-      icon: Users,
-      title: "Community",
-      description: "Learning is better together. Our alumni network provides lifelong support and opportunities."
-    }
+    { icon: Target, title: "Outcome-Driven", description: "Every program is designed with clear, measurable outcomes." },
+    { icon: Heart, title: "Student-First", description: "Our students' success is our success." },
+    { icon: Lightbulb, title: "Innovation", description: "We constantly evolve our curriculum and methods." },
+    { icon: Users, title: "Community", description: "Learning is better together." }
   ];
 
   const stats = [
@@ -56,6 +34,8 @@ const AboutPage = () => {
 
   return (
     <div className="min-h-screen" data-testid="about-page">
+      <AdminEditBanner />
+      
       {/* Hero Section */}
       <section className="relative py-24 px-6 lg:px-8 bg-gradient-to-br from-[#053d6c] to-[#084a80] overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -63,39 +43,91 @@ const AboutPage = () => {
           <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-white blur-3xl" />
         </div>
         
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="font-['Outfit'] text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6" data-testid="about-title">
-            {heroTitle}
-          </h1>
-          <p className="text-xl text-slate-300 leading-relaxed" data-testid="about-subtitle">
-            {heroSubtitle}
-          </p>
-        </div>
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="max-w-4xl mx-auto text-center relative z-10"
+        >
+          <motion.h1 
+            variants={fadeInUp}
+            className="font-['Outfit'] text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6" 
+            data-testid="about-title"
+          >
+            <EditableText 
+              page="about" 
+              section="hero" 
+              field="title"
+              defaultValue="Redefining Employability"
+              type="heading"
+              as="span"
+            />
+          </motion.h1>
+          <motion.p variants={fadeInUp} className="text-xl text-slate-300 leading-relaxed" data-testid="about-subtitle">
+            <EditableText 
+              page="about" 
+              section="hero" 
+              field="subtitle"
+              defaultValue="We believe skills alone aren't enough. True career success comes from combining technical expertise with behavioral transformation."
+              type="textarea"
+              as="span"
+            />
+          </motion.p>
+        </motion.div>
       </section>
 
       {/* Problem Section */}
       <section className="py-20 px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid lg:grid-cols-2 gap-12 items-center"
+          >
+            <motion.div variants={fadeInUp}>
               <h2 className="font-['Outfit'] text-3xl font-bold text-[#053d6c] mb-6">
-                The Employability Gap
+                <EditableText 
+                  page="about" 
+                  section="problem" 
+                  field="title"
+                  defaultValue="The Employability Gap"
+                  type="heading"
+                  as="span"
+                />
               </h2>
-              <p className="text-slate-600 leading-relaxed mb-4">
-                Every year, millions of graduates enter the workforce with degrees but struggle to find meaningful employment. The problem isn't a lack of technical knowledge—it's a gap between what education provides and what industry needs.
-              </p>
-              <p className="text-slate-600 leading-relaxed mb-4">
-                Employers consistently report that new hires lack soft skills, professional habits, and the ability to adapt to workplace dynamics. Traditional education focuses on theoretical knowledge but overlooks the behavioral transformation needed for career success.
-              </p>
-              <p className="text-slate-600 leading-relaxed">
-                <strong className="text-[#053d6c]">That's where we come in.</strong> The Skill Circuit bridges this gap by combining industry-relevant skills with behavioral transformation coaching.
-              </p>
-            </div>
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1582601231162-132ca60713d6?w=800"
+              <div className="text-slate-600 leading-relaxed space-y-4">
+                <p>
+                  <EditableText 
+                    page="about" 
+                    section="problem" 
+                    field="paragraph1"
+                    defaultValue="Every year, millions of graduates enter the workforce with degrees but struggle to find meaningful employment. The problem isn't a lack of technical knowledge—it's a gap between what education provides and what industry needs."
+                    type="textarea"
+                    as="span"
+                  />
+                </p>
+                <p>
+                  <EditableText 
+                    page="about" 
+                    section="problem" 
+                    field="paragraph2"
+                    defaultValue="Employers consistently report that new hires lack soft skills, professional habits, and the ability to adapt to workplace dynamics."
+                    type="textarea"
+                    as="span"
+                  />
+                </p>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeInUp} className="relative">
+              <EditableImage 
+                page="about"
+                section="problem"
+                field="image"
+                defaultSrc="https://images.unsplash.com/photo-1582601651824-e1e8a57e6fca?w=800"
                 alt="Mentor teaching student"
-                className="rounded-2xl shadow-2xl"
+                className="rounded-2xl shadow-2xl w-full h-[400px] object-cover"
               />
               <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-xl">
                 <div className="flex items-center gap-3">
@@ -108,53 +140,92 @@ const AboutPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Mission Section */}
       <section className="py-20 px-6 lg:px-8 bg-slate-50" data-testid="mission-section">
-        <div className="max-w-4xl mx-auto text-center">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="max-w-4xl mx-auto text-center"
+        >
           <div className="w-16 h-16 rounded-2xl bg-[#f16a2f] flex items-center justify-center mx-auto mb-6">
             <Award className="w-8 h-8 text-white" />
           </div>
           <h2 className="font-['Outfit'] text-3xl font-bold text-[#053d6c] mb-6">
-            Our Mission
+            <EditableText 
+              page="about" 
+              section="mission" 
+              field="title"
+              defaultValue="Our Mission"
+              type="heading"
+              as="span"
+            />
           </h2>
           <p className="text-xl text-slate-600 leading-relaxed italic" data-testid="mission-text">
-            "{missionText}"
+            "<EditableText 
+              page="about" 
+              section="mission" 
+              field="text"
+              defaultValue="To embed behavioral change and industry co-creation at the core of graduate transformation — shaping professionals, strengthening education, and serving industry with talent that delivers and endures."
+              type="textarea"
+              as="span"
+            />"
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* Values Section */}
       <section className="py-20 px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
             <h2 className="font-['Outfit'] text-3xl font-bold text-[#053d6c] mb-4">
-              Our Values
+              <EditableText 
+                page="about" 
+                section="values" 
+                field="title"
+                defaultValue="Our Values"
+                type="heading"
+                as="span"
+              />
             </h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
-              These principles guide everything we do, from curriculum design to student support.
-            </p>
-          </div>
+          </motion.div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
             {values.map((value, index) => (
-              <div key={index} className="card-marketing p-6 text-center" data-testid={`value-${index}`}>
+              <motion.div 
+                key={index} 
+                variants={fadeInUp}
+                className="card-marketing p-6 text-center" 
+                data-testid={`value-${index}`}
+              >
                 <div className="w-14 h-14 rounded-xl bg-[#f16a2f]/10 flex items-center justify-center mx-auto mb-4">
                   <value.icon className="w-7 h-7 text-[#f16a2f]" />
                 </div>
                 <h3 className="font-['Outfit'] text-lg font-bold text-[#053d6c] mb-2">
                   {value.title}
                 </h3>
-                <p className="text-slate-600 text-sm">
-                  {value.description}
-                </p>
-              </div>
+                <p className="text-slate-600 text-sm">{value.description}</p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -174,49 +245,59 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Approach Section */}
+      {/* Team/Approach Section */}
       <section className="py-20 px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
             <h2 className="font-['Outfit'] text-3xl font-bold text-[#053d6c] mb-4">
-              Our Unique Approach
+              <EditableText 
+                page="about" 
+                section="approach" 
+                field="title"
+                defaultValue="Our Unique Approach"
+                type="heading"
+                as="span"
+              />
             </h2>
             <p className="text-slate-600 max-w-2xl mx-auto">
-              We don't just teach skills. We transform behaviors, build habits, and create professionals.
+              <EditableText 
+                page="about" 
+                section="approach" 
+                field="subtitle"
+                defaultValue="We don't just teach skills. We transform behaviors, build habits, and create professionals."
+                type="textarea"
+                as="span"
+              />
             </p>
-          </div>
+          </motion.div>
           
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="bg-slate-50 rounded-xl p-8">
-              <div className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xl mb-4">1</div>
-              <h3 className="font-['Outfit'] text-xl font-bold text-[#053d6c] mb-3">
-                Industry-Co-Created Curriculum
-              </h3>
-              <p className="text-slate-600">
-                Our courses are designed in partnership with industry leaders, ensuring every skill taught is immediately applicable in the workplace.
-              </p>
-            </div>
-            
-            <div className="bg-slate-50 rounded-xl p-8">
-              <div className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xl mb-4">2</div>
-              <h3 className="font-['Outfit'] text-xl font-bold text-[#053d6c] mb-3">
-                Behavioral Transformation
-              </h3>
-              <p className="text-slate-600">
-                Daily nudges, accountability systems, and mentor guidance help build the professional habits that employers value most.
-              </p>
-            </div>
-            
-            <div className="bg-slate-50 rounded-xl p-8">
-              <div className="w-12 h-12 rounded-full bg-[#f16a2f] text-white flex items-center justify-center font-bold text-xl mb-4">3</div>
-              <h3 className="font-['Outfit'] text-xl font-bold text-[#053d6c] mb-3">
-                Guaranteed Outcomes
-              </h3>
-              <p className="text-slate-600">
-                Our Launchpad programs come with guaranteed interview opportunities, internships, and long-term career support.
-              </p>
-            </div>
-          </div>
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid lg:grid-cols-3 gap-8"
+          >
+            {[
+              { num: "1", title: "Industry-Co-Created Curriculum", desc: "Our courses are designed in partnership with industry leaders." },
+              { num: "2", title: "Behavioral Transformation", desc: "Daily nudges, accountability systems, and mentor guidance." },
+              { num: "3", title: "Guaranteed Outcomes", desc: "Interview opportunities, internships, and career support." }
+            ].map((item, idx) => (
+              <motion.div key={idx} variants={fadeInUp} className="bg-slate-50 rounded-xl p-8">
+                <div className="w-12 h-12 rounded-full bg-[#f16a2f] text-white flex items-center justify-center font-bold text-xl mb-4">
+                  {item.num}
+                </div>
+                <h3 className="font-['Outfit'] text-xl font-bold text-[#053d6c] mb-3">{item.title}</h3>
+                <p className="text-slate-600">{item.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
     </div>
