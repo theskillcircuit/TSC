@@ -25,6 +25,29 @@ const ContactPage = () => {
   });
   const [submitting, setSubmitting] = useState(false);
 
+  // Default content for contact info
+  const defaultContactInfo = {
+    email_label: "Email",
+    email_value: "theskillcircuit@gmail.com",
+    phone_label: "Phone",
+    phone_value: "+91 98765 43210",
+    location_label: "Location",
+    location_value: "Bangalore, India"
+  };
+
+  // Default FAQ content
+  const defaultFaq = {
+    title: "Frequently Asked Questions",
+    q1: "How do I enroll in a course?",
+    a1: "Browse our courses, select the one you're interested in, and click 'Enroll Now'.",
+    q2: "Do you offer refunds?",
+    a2: "Yes, we offer a 30-day money-back guarantee if you're not satisfied.",
+    q3: "What is the Launchpad program?",
+    a3: "Launchpad is our flagship 4-month program with guaranteed interview opportunities.",
+    q4: "Can I upgrade from Sprint to Pathway?",
+    a4: "Absolutely! You can upgrade at any time with price adjustment."
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -48,12 +71,6 @@ const ContactPage = () => {
       setSubmitting(false);
     }
   };
-
-  const contactInfo = [
-    { icon: Mail, label: 'Email', value: 'theskillcircuit@gmail.com', href: 'mailto:theskillcircuit@gmail.com' },
-    { icon: Phone, label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
-    { icon: MapPin, label: 'Location', value: 'Bangalore, India', href: '#' }
-  ];
 
   return (
     <div className="min-h-screen bg-slate-50" data-testid="contact-page">
@@ -94,7 +111,7 @@ const ContactPage = () => {
       <section className="py-16 px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-12">
-            {/* Contact Info */}
+            {/* Contact Info - Fully Editable */}
             <motion.div 
               initial="hidden"
               animate="visible"
@@ -103,39 +120,84 @@ const ContactPage = () => {
             >
               <div>
                 <h2 className="font-['Outfit'] text-2xl font-bold text-[#053d6c] mb-4">
-                  Contact Information
+                  <EditableText 
+                    page="contact" 
+                    section="info" 
+                    field="title"
+                    defaultValue="Contact Information"
+                    type="text"
+                    as="span"
+                  />
                 </h2>
                 <p className="text-slate-600">
-                  Reach out to us through any of these channels. We typically respond within 24 hours.
+                  <EditableText 
+                    page="contact" 
+                    section="info" 
+                    field="subtitle"
+                    defaultValue="Reach out to us through any of these channels. We typically respond within 24 hours."
+                    type="textarea"
+                    as="span"
+                  />
                 </p>
               </div>
 
               <div className="space-y-6">
-                {contactInfo.map((info, index) => (
-                  <a 
-                    key={index}
-                    href={info.href}
-                    className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
-                  >
-                    <div className="w-12 h-12 rounded-lg bg-[#f16a2f]/10 flex items-center justify-center flex-shrink-0">
-                      <info.icon className="w-6 h-6 text-[#f16a2f]" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-slate-500">{info.label}</p>
-                      <p className="font-medium text-[#053d6c]">{info.value}</p>
-                    </div>
-                  </a>
-                ))}
+                {/* Email */}
+                <div className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="w-12 h-12 rounded-lg bg-[#f16a2f]/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-6 h-6 text-[#f16a2f]" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-500">
+                      <EditableText page="contact" section="info" field="email_label" defaultValue={defaultContactInfo.email_label} type="text" as="span" />
+                    </p>
+                    <p className="font-medium text-[#053d6c]">
+                      <EditableText page="contact" section="info" field="email_value" defaultValue={defaultContactInfo.email_value} type="text" as="span" />
+                    </p>
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="w-12 h-12 rounded-lg bg-[#f16a2f]/10 flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-6 h-6 text-[#f16a2f]" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-500">
+                      <EditableText page="contact" section="info" field="phone_label" defaultValue={defaultContactInfo.phone_label} type="text" as="span" />
+                    </p>
+                    <p className="font-medium text-[#053d6c]">
+                      <EditableText page="contact" section="info" field="phone_value" defaultValue={defaultContactInfo.phone_value} type="text" as="span" />
+                    </p>
+                  </div>
+                </div>
+
+                {/* Location */}
+                <div className="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="w-12 h-12 rounded-lg bg-[#f16a2f]/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-[#f16a2f]" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-500">
+                      <EditableText page="contact" section="info" field="location_label" defaultValue={defaultContactInfo.location_label} type="text" as="span" />
+                    </p>
+                    <p className="font-medium text-[#053d6c]">
+                      <EditableText page="contact" section="info" field="location_value" defaultValue={defaultContactInfo.location_value} type="text" as="span" />
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              {/* Quick Connect */}
+              {/* Quick Connect - Editable */}
               <div className="bg-gradient-to-br from-[#053d6c] to-[#084a80] rounded-xl p-6 text-white">
                 <div className="flex items-center gap-3 mb-4">
                   <MessageSquare className="w-6 h-6" />
-                  <h3 className="font-['Outfit'] font-semibold">Quick Connect</h3>
+                  <h3 className="font-['Outfit'] font-semibold">
+                    <EditableText page="contact" section="info" field="quick_title" defaultValue="Quick Connect" type="text" as="span" />
+                  </h3>
                 </div>
                 <p className="text-slate-300 text-sm mb-4">
-                  Want instant support? Chat with us on WhatsApp.
+                  <EditableText page="contact" section="info" field="quick_desc" defaultValue="Want instant support? Chat with us on WhatsApp." type="textarea" as="span" />
                 </p>
                 <a 
                   href="https://wa.me/919876543210"
@@ -143,7 +205,7 @@ const ContactPage = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors"
                 >
-                  WhatsApp Us
+                  <EditableText page="contact" section="info" field="whatsapp_btn" defaultValue="WhatsApp Us" type="text" as="span" />
                 </a>
               </div>
             </motion.div>
@@ -157,7 +219,7 @@ const ContactPage = () => {
             >
               <div className="bg-white rounded-xl p-8 shadow-lg" data-testid="contact-form">
                 <h2 className="font-['Outfit'] text-2xl font-bold text-[#053d6c] mb-6">
-                  Send us a Message
+                  <EditableText page="contact" section="form" field="title" defaultValue="Send us a Message" type="text" as="span" />
                 </h2>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -241,7 +303,7 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ Section - Fully Editable */}
       <section className="py-16 px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-['Outfit'] text-2xl font-bold text-[#053d6c] mb-8 text-center">
@@ -249,22 +311,35 @@ const ContactPage = () => {
               page="contact" 
               section="faq" 
               field="title"
-              defaultValue="Frequently Asked Questions"
+              defaultValue={defaultFaq.title}
               type="heading"
               as="span"
             />
           </h2>
           
           <div className="space-y-4">
-            {[
-              { q: "How do I enroll in a course?", a: "Browse our courses, select the one you're interested in, and click 'Enroll Now'." },
-              { q: "Do you offer refunds?", a: "Yes, we offer a 30-day money-back guarantee if you're not satisfied." },
-              { q: "What is the Launchpad program?", a: "Launchpad is our flagship 4-month program with guaranteed interview opportunities." },
-              { q: "Can I upgrade from Sprint to Pathway?", a: "Absolutely! You can upgrade at any time with price adjustment." }
-            ].map((faq, index) => (
-              <div key={index} className="bg-slate-50 rounded-xl p-6">
-                <h3 className="font-['Outfit'] font-semibold text-[#053d6c] mb-2">{faq.q}</h3>
-                <p className="text-slate-600 text-sm">{faq.a}</p>
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="bg-slate-50 rounded-xl p-6">
+                <h3 className="font-['Outfit'] font-semibold text-[#053d6c] mb-2">
+                  <EditableText 
+                    page="contact" 
+                    section="faq" 
+                    field={`q${i}`}
+                    defaultValue={defaultFaq[`q${i}`]}
+                    type="text"
+                    as="span"
+                  />
+                </h3>
+                <p className="text-slate-600 text-sm">
+                  <EditableText 
+                    page="contact" 
+                    section="faq" 
+                    field={`a${i}`}
+                    defaultValue={defaultFaq[`a${i}`]}
+                    type="textarea"
+                    as="span"
+                  />
+                </p>
               </div>
             ))}
           </div>

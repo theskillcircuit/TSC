@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { EditableText, EditableImage, AdminEditBanner } from '../components/EditableContent';
-import { Target, Users, Award, Heart, Lightbulb, Rocket } from 'lucide-react';
+import { Target, Users, Award, Heart, Lightbulb, Rocket, Briefcase, GraduationCap } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -18,19 +18,44 @@ const staggerContainer = {
 };
 
 const AboutPage = () => {
-  const values = [
-    { icon: Target, title: "Outcome-Driven", description: "Every program is designed with clear, measurable outcomes." },
-    { icon: Heart, title: "Student-First", description: "Our students' success is our success." },
-    { icon: Lightbulb, title: "Innovation", description: "We constantly evolve our curriculum and methods." },
-    { icon: Users, title: "Community", description: "Learning is better together." }
-  ];
+  // Default content for values section
+  const defaultValues = {
+    title: "Our Values",
+    v1_title: "Outcome-Driven",
+    v1_desc: "Every program is designed with clear, measurable outcomes.",
+    v2_title: "Student-First",
+    v2_desc: "Our students' success is our success.",
+    v3_title: "Innovation",
+    v3_desc: "We constantly evolve our curriculum and methods.",
+    v4_title: "Community",
+    v4_desc: "Learning is better together."
+  };
 
-  const stats = [
-    { number: "500+", label: "Successful Placements" },
-    { number: "100+", label: "Partner Companies" },
-    { number: "50+", label: "Industry Mentors" },
-    { number: "4.9", label: "Student Rating" }
-  ];
+  // Default stats
+  const defaultStats = {
+    stat1_value: "500+",
+    stat1_label: "Successful Placements",
+    stat2_value: "100+",
+    stat2_label: "Partner Companies",
+    stat3_value: "50+",
+    stat3_label: "Industry Mentors",
+    stat4_value: "4.9",
+    stat4_label: "Student Rating"
+  };
+
+  // Default approach
+  const defaultApproach = {
+    title: "Our Unique Approach",
+    subtitle: "We don't just teach skills. We transform behaviors, build habits, and create professionals.",
+    step1_title: "Industry-Co-Created Curriculum",
+    step1_desc: "Our courses are designed in partnership with industry leaders.",
+    step2_title: "Behavioral Transformation",
+    step2_desc: "Daily nudges, accountability systems, and mentor guidance.",
+    step3_title: "Guaranteed Outcomes",
+    step3_desc: "Interview opportunities, internships, and career support."
+  };
+
+  const valueIcons = [Target, Heart, Lightbulb, Users];
 
   return (
     <div className="min-h-screen" data-testid="about-page">
@@ -135,8 +160,12 @@ const AboutPage = () => {
                     <Rocket className="w-6 h-6 text-[#f16a2f]" />
                   </div>
                   <div>
-                    <p className="font-['Outfit'] font-bold text-[#053d6c]">Industry-Ready</p>
-                    <p className="text-sm text-slate-500">From Day One</p>
+                    <p className="font-['Outfit'] font-bold text-[#053d6c]">
+                      <EditableText page="about" section="problem" field="card_title" defaultValue="Industry-Ready" type="text" as="span" />
+                    </p>
+                    <p className="text-sm text-slate-500">
+                      <EditableText page="about" section="problem" field="card_subtitle" defaultValue="From Day One" type="text" as="span" />
+                    </p>
                   </div>
                 </div>
               </div>
@@ -180,7 +209,7 @@ const AboutPage = () => {
         </motion.div>
       </section>
 
-      {/* Values Section */}
+      {/* Values Section - Fully Editable */}
       <section className="py-20 px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div 
@@ -195,7 +224,7 @@ const AboutPage = () => {
                 page="about" 
                 section="values" 
                 field="title"
-                defaultValue="Our Values"
+                defaultValue={defaultValues.title}
                 type="heading"
                 as="span"
               />
@@ -209,43 +238,78 @@ const AboutPage = () => {
             variants={staggerContainer}
             className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
-            {values.map((value, index) => (
-              <motion.div 
-                key={index} 
-                variants={fadeInUp}
-                className="card-marketing p-6 text-center" 
-                data-testid={`value-${index}`}
-              >
-                <div className="w-14 h-14 rounded-xl bg-[#f16a2f]/10 flex items-center justify-center mx-auto mb-4">
-                  <value.icon className="w-7 h-7 text-[#f16a2f]" />
-                </div>
-                <h3 className="font-['Outfit'] text-lg font-bold text-[#053d6c] mb-2">
-                  {value.title}
-                </h3>
-                <p className="text-slate-600 text-sm">{value.description}</p>
-              </motion.div>
-            ))}
+            {[1, 2, 3, 4].map((i) => {
+              const Icon = valueIcons[i - 1];
+              return (
+                <motion.div 
+                  key={i} 
+                  variants={fadeInUp}
+                  className="card-marketing p-6 text-center" 
+                  data-testid={`value-${i}`}
+                >
+                  <div className="w-14 h-14 rounded-xl bg-[#f16a2f]/10 flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-7 h-7 text-[#f16a2f]" />
+                  </div>
+                  <h3 className="font-['Outfit'] text-lg font-bold text-[#053d6c] mb-2">
+                    <EditableText 
+                      page="about" 
+                      section="values" 
+                      field={`v${i}_title`}
+                      defaultValue={defaultValues[`v${i}_title`]}
+                      type="text"
+                      as="span"
+                    />
+                  </h3>
+                  <p className="text-slate-600 text-sm">
+                    <EditableText 
+                      page="about" 
+                      section="values" 
+                      field={`v${i}_desc`}
+                      defaultValue={defaultValues[`v${i}_desc`]}
+                      type="textarea"
+                      as="span"
+                    />
+                  </p>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Stats Section - Fully Editable */}
       <section className="py-20 px-6 lg:px-8 bg-[#053d6c]" data-testid="stats-section">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="text-center">
                 <p className="font-['Outfit'] text-4xl lg:text-5xl font-bold text-[#f16a2f] mb-2">
-                  {stat.number}
+                  <EditableText 
+                    page="about" 
+                    section="stats" 
+                    field={`stat${i}_value`}
+                    defaultValue={defaultStats[`stat${i}_value`]}
+                    type="text"
+                    as="span"
+                  />
                 </p>
-                <p className="text-slate-300">{stat.label}</p>
+                <p className="text-slate-300">
+                  <EditableText 
+                    page="about" 
+                    section="stats" 
+                    field={`stat${i}_label`}
+                    defaultValue={defaultStats[`stat${i}_label`]}
+                    type="text"
+                    as="span"
+                  />
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Team/Approach Section */}
+      {/* Team/Approach Section - Fully Editable */}
       <section className="py-20 px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div 
@@ -260,7 +324,7 @@ const AboutPage = () => {
                 page="about" 
                 section="approach" 
                 field="title"
-                defaultValue="Our Unique Approach"
+                defaultValue={defaultApproach.title}
                 type="heading"
                 as="span"
               />
@@ -270,7 +334,7 @@ const AboutPage = () => {
                 page="about" 
                 section="approach" 
                 field="subtitle"
-                defaultValue="We don't just teach skills. We transform behaviors, build habits, and create professionals."
+                defaultValue={defaultApproach.subtitle}
                 type="textarea"
                 as="span"
               />
@@ -284,17 +348,31 @@ const AboutPage = () => {
             variants={staggerContainer}
             className="grid lg:grid-cols-3 gap-8"
           >
-            {[
-              { num: "1", title: "Industry-Co-Created Curriculum", desc: "Our courses are designed in partnership with industry leaders." },
-              { num: "2", title: "Behavioral Transformation", desc: "Daily nudges, accountability systems, and mentor guidance." },
-              { num: "3", title: "Guaranteed Outcomes", desc: "Interview opportunities, internships, and career support." }
-            ].map((item, idx) => (
-              <motion.div key={idx} variants={fadeInUp} className="bg-slate-50 rounded-xl p-8">
+            {[1, 2, 3].map((i) => (
+              <motion.div key={i} variants={fadeInUp} className="bg-slate-50 rounded-xl p-8">
                 <div className="w-12 h-12 rounded-full bg-[#f16a2f] text-white flex items-center justify-center font-bold text-xl mb-4">
-                  {item.num}
+                  {i}
                 </div>
-                <h3 className="font-['Outfit'] text-xl font-bold text-[#053d6c] mb-3">{item.title}</h3>
-                <p className="text-slate-600">{item.desc}</p>
+                <h3 className="font-['Outfit'] text-xl font-bold text-[#053d6c] mb-3">
+                  <EditableText 
+                    page="about" 
+                    section="approach" 
+                    field={`step${i}_title`}
+                    defaultValue={defaultApproach[`step${i}_title`]}
+                    type="text"
+                    as="span"
+                  />
+                </h3>
+                <p className="text-slate-600">
+                  <EditableText 
+                    page="about" 
+                    section="approach" 
+                    field={`step${i}_desc`}
+                    defaultValue={defaultApproach[`step${i}_desc`]}
+                    type="textarea"
+                    as="span"
+                  />
+                </p>
               </motion.div>
             ))}
           </motion.div>

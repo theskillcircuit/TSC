@@ -4,18 +4,30 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
-import { EditableText, AdminEditBanner } from '../components/EditableContent';
+import { EditableText, EditableImage, AdminEditBanner } from '../components/EditableContent';
 import { Clock, Star, Users, ArrowRight, CheckCircle, Sparkles, TrendingUp } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const categories = [
-  { id: 'nano', name: 'Nano', description: '4-6 hours • Quick skill exposure', color: '#3b82f6' },
-  { id: 'sprint', name: 'Sprint', description: '10-15 hours • Hands-on projects', color: '#22c55e' },
-  { id: 'pathway', name: 'Pathway', description: '30-40 hours • Portfolio building', color: '#8b5cf6' },
-  { id: 'launchpad', name: 'Launchpad', description: '4 months • Career transformation', color: '#f16a2f' }
-];
+// Default category content for CMS
+const defaultCategories = {
+  nano_name: "Nano",
+  nano_desc: "4-6 hours • Quick skill exposure",
+  sprint_name: "Sprint",
+  sprint_desc: "10-15 hours • Hands-on projects",
+  pathway_name: "Pathway",
+  pathway_desc: "30-40 hours • Portfolio building",
+  launchpad_name: "Launchpad",
+  launchpad_desc: "4 months • Career transformation"
+};
+
+const categoryColors = {
+  nano: '#3b82f6',
+  sprint: '#22c55e',
+  pathway: '#8b5cf6',
+  launchpad: '#f16a2f'
+};
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -32,21 +44,26 @@ const CoursesPage = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || 'all');
+  const [cmsData, setCmsData] = useState({});
 
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
         const params = activeCategory !== 'all' ? `?category=${activeCategory}` : '';
-        const response = await axios.get(`${API}/courses${params}`);
-        setCourses(response.data);
+        const [coursesRes, cmsRes] = await Promise.all([
+          axios.get(`${API}/courses${params}`),
+          axios.get(`${API}/cms/courses`)
+        ]);
+        setCourses(coursesRes.data);
+        setCmsData(cmsRes.data?.sections || {});
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
-    fetchCourses();
+    fetchData();
   }, [activeCategory]);
 
   const handleCategoryChange = (category) => {
@@ -59,8 +76,7 @@ const CoursesPage = () => {
   };
 
   const getCategoryColor = (category) => {
-    const cat = categories.find(c => c.id === category);
-    return cat?.color || '#64748b';
+    return categoryColors[category] || '#64748b';
   };
 
   const formatPrice = (price) => {
@@ -78,6 +94,8 @@ const CoursesPage = () => {
     }
     return `${hours} hours`;
   };
+
+  const categories = ['nano', 'sprint', 'pathway', 'launchpad'];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white" data-testid="courses-page">
@@ -112,7 +130,7 @@ const CoursesPage = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-[#f16a2f] text-sm font-semibold mb-6 backdrop-blur-sm border border-white/10"
             >
               <Sparkles className="w-4 h-4" />
-              50+ Industry-Ready Courses
+              <EditableText page="courses" section="hero" field="badge" defaultValue="50+ Industry-Ready Courses" type="text" as="span" />
             </motion.span>
             <h1 className="font-['Outfit'] text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6" data-testid="courses-title">
               <EditableText 
@@ -159,18 +177,18 @@ const CoursesPage = () => {
               className={`tab-pill whitespace-nowrap ${activeCategory === 'all' ? 'tab-pill-active' : 'tab-pill-inactive'}`}
               data-testid="tab-all"
             >
-              All Courses
+              <EditableText page="courses" section="tabs" field="all" defaultValue="All Courses" type="text" as="span" />
             </motion.button>
             {categories.map((cat) => (
               <motion.button
-                key={cat.id}
+                key={cat}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => handleCategoryChange(cat.id)}
-                className={`tab-pill whitespace-nowrap ${activeCategory === cat.id ? 'tab-pill-active' : 'tab-pill-inactive'}`}
-                data-testid={`tab-${cat.id}`}
+                onClick={() => handleCategoryChange(cat)}
+                className={`tab-pill whitespace-nowrap ${activeCategory === cat ? 'tab-pill-active' : 'tab-pill-inactive'}`}
+                data-testid={`tab-${cat}`}
               >
-                {cat.name}
+                <EditableText page="courses" section="categories" field={`${cat}_name`} defaultValue={defaultCategories[`${cat}_name`]} type="text" as="span" />
               </motion.button>
             ))}
           </div>
@@ -191,13 +209,13 @@ const CoursesPage = () => {
                 style={{ backgroundColor: getCategoryColor(activeCategory) }}
               />
               <p className="text-slate-600 font-medium">
-                {categories.find(c => c.id === activeCategory)?.description}
+                <EditableText page="courses" section="categories" field={`${activeCategory}_desc`} defaultValue={defaultCategories[`${activeCategory}_desc`]} type="text" as="span" />
               </p>
             </div>
             {activeCategory === 'launchpad' && (
               <Badge className="bg-[#f16a2f] text-white px-4 py-1.5 text-sm font-semibold">
                 <TrendingUp className="w-4 h-4 mr-1" />
-                Placement Guaranteed
+                <EditableText page="courses" section="categories" field="launchpad_badge" defaultValue="Placement Guaranteed" type="text" as="span" />
               </Badge>
             )}
           </div>
@@ -230,7 +248,9 @@ const CoursesPage = () => {
               <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-6">
                 <Sparkles className="w-10 h-10 text-slate-400" />
               </div>
-              <p className="text-slate-500 text-xl mb-6">No courses found in this category.</p>
+              <p className="text-slate-500 text-xl mb-6">
+                <EditableText page="courses" section="empty" field="message" defaultValue="No courses found in this category." type="text" as="span" />
+              </p>
               <Button onClick={() => handleCategoryChange('all')} className="btn-primary">
                 View All Courses
               </Button>
@@ -346,7 +366,7 @@ const CoursesPage = () => {
         </div>
       </section>
 
-      {/* Launchpad CTA */}
+      {/* Launchpad CTA - Fully Editable */}
       {activeCategory !== 'launchpad' && (
         <section className="py-20 px-6 lg:px-12">
           <motion.div 
@@ -357,8 +377,11 @@ const CoursesPage = () => {
           >
             <div className="relative rounded-[2rem] overflow-hidden">
               {/* Background Image */}
-              <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200"
+              <EditableImage 
+                page="courses" 
+                section="cta" 
+                field="image"
+                defaultSrc="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200"
                 alt="Career transformation"
                 className="w-full h-[400px] object-cover"
               />
@@ -368,20 +391,20 @@ const CoursesPage = () => {
               <div className="absolute inset-0 flex items-center px-10 lg:px-16">
                 <div className="max-w-xl">
                   <Badge className="bg-[#f16a2f] text-white mb-4 px-4 py-1.5 text-sm font-semibold">
-                    Premium Program
+                    <EditableText page="courses" section="cta" field="badge" defaultValue="Premium Program" type="text" as="span" />
                   </Badge>
                   <h2 className="font-['Outfit'] text-3xl lg:text-4xl font-bold text-white mb-4">
-                    Ready for Complete Career Transformation?
+                    <EditableText page="courses" section="cta" field="title" defaultValue="Ready for Complete Career Transformation?" type="heading" as="span" />
                   </h2>
                   <p className="text-slate-300 text-lg mb-8">
-                    Our Launchpad programs offer guaranteed interviews, internship placements, and comprehensive career support. Your dream job awaits.
+                    <EditableText page="courses" section="cta" field="description" defaultValue="Our Launchpad programs offer guaranteed interviews, internship placements, and comprehensive career support. Your dream job awaits." type="textarea" as="span" />
                   </p>
                   <Button 
                     onClick={() => handleCategoryChange('launchpad')}
                     className="bg-[#f16a2f] hover:bg-[#ff8f5c] text-white text-lg px-8 py-4 rounded-full shadow-xl"
                     data-testid="explore-launchpad-btn"
                   >
-                    Explore Launchpad
+                    <EditableText page="courses" section="cta" field="button" defaultValue="Explore Launchpad" type="text" as="span" />
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </div>
