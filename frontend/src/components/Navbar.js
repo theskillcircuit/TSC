@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import { Button } from '../components/ui/button';
+import { EditableText } from './EditableContent';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,10 +29,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Courses', path: '/courses' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Home', path: '/', field: 'nav_home' },
+    { name: 'About', path: '/about', field: 'nav_about' },
+    { name: 'Courses', path: '/courses', field: 'nav_courses' },
+    { name: 'Contact', path: '/contact', field: 'nav_contact' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -54,20 +55,22 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+          {/* Logo - Editable */}
           <Link to="/" className="flex items-center gap-3 group" data-testid="logo-link">
             <motion.div 
               whileHover={{ rotate: 5 }}
               className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#053d6c] to-[#0a4e8a] flex items-center justify-center shadow-lg"
             >
-              <span className="text-white font-bold text-lg font-['Outfit']">SC</span>
+              <span className="text-white font-bold text-lg font-['Outfit']">
+                <EditableText page="global" section="navbar" field="logo_initials" defaultValue="SC" type="text" as="span" />
+              </span>
             </motion.div>
             <span className="font-['Outfit'] font-bold text-xl text-[#053d6c] hidden sm:block group-hover:text-[#f16a2f] transition-colors">
-              The Skill Circuit
+              <EditableText page="global" section="navbar" field="brand_name" defaultValue="The Skill Circuit" type="text" as="span" />
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Editable Links */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
@@ -80,7 +83,7 @@ const Navbar = () => {
                     : 'text-[#053d6c] hover:text-[#f16a2f] hover:bg-[#f16a2f]/5'
                 }`}
               >
-                {link.name}
+                <EditableText page="global" section="navbar" field={link.field} defaultValue={link.name} type="text" as="span" />
                 {isActive(link.path) && (
                   <motion.div 
                     layoutId="navIndicator"
@@ -91,7 +94,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons - Editable */}
           <div className="hidden md:flex items-center gap-3">
             {user ? (
               <DropdownMenu>
@@ -145,12 +148,12 @@ const Navbar = () => {
               <>
                 <Link to="/login">
                   <Button variant="ghost" className="text-[#053d6c] font-medium px-5 py-2.5 rounded-full hover:bg-slate-100" data-testid="login-btn">
-                    Login
+                    <EditableText page="global" section="navbar" field="login_btn" defaultValue="Login" type="text" as="span" />
                   </Button>
                 </Link>
                 <Link to="/signup">
                   <Button className="btn-primary px-6 py-2.5" data-testid="signup-btn">
-                    Get Started
+                    <EditableText page="global" section="navbar" field="signup_btn" defaultValue="Get Started" type="text" as="span" />
                   </Button>
                 </Link>
               </>
