@@ -64,7 +64,14 @@ const Footer = () => {
               <span className="font-['Outfit'] font-bold text-xl">The Skill Circuit</span>
             </Link>
             <p className="text-slate-300 leading-relaxed mb-6">
-              Transforming careers through skill mastery, behavioral excellence, and guaranteed outcomes. Your success is our mission.
+              <EditableText 
+                page="global" 
+                section="footer" 
+                field="description"
+                defaultValue="Transforming careers through skill mastery, behavioral excellence, and guaranteed outcomes. Your success is our mission."
+                type="textarea"
+                as="span"
+              />
             </p>
             <div className="flex gap-3">
               {[
