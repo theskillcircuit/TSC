@@ -81,6 +81,8 @@ const CoursesPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white" data-testid="courses-page">
+      <AdminEditBanner />
+      
       {/* Hero Section */}
       <section className="relative py-20 lg:py-28 px-6 lg:px-12 bg-[#053d6c] overflow-hidden">
         {/* Background Elements */}
