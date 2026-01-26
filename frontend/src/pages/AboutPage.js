@@ -150,7 +150,7 @@ const AboutPage = () => {
                 page="about"
                 section="problem"
                 field="image"
-                defaultSrc="https://images.unsplash.com/photo-1582601651824-e1e8a57e6fca?w=800"
+                defaultSrc="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800"
                 alt="Mentor teaching student"
                 className="rounded-2xl shadow-2xl w-full h-[400px] object-cover"
               />
