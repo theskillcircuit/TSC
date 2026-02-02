@@ -475,7 +475,7 @@ const HomePage = () => {
               <motion.div key={i} variants={fadeInUp} whileHover={{ y: -8 }} className="bg-gradient-to-br from-slate-50 to-white rounded-3xl p-8 border border-slate-100 shadow-lg hover:shadow-2xl transition-all">
                 <Quote className="w-10 h-10 text-[#f16a2f]/20 mb-4" />
                 <p className="text-slate-600 text-lg leading-relaxed mb-6">
-                  "<EditableText page="home" section="testimonials" field={`t${i}_quote`} defaultValue={defaults.testimonials[`t${i}_quote`]} type="textarea" as="span" />"
+                  &ldquo;<EditableText page="home" section="testimonials" field={`t${i}_quote`} defaultValue={defaults.testimonials[`t${i}_quote`]} type="textarea" as="span" />&rdquo;
                 </p>
                 <div className="flex items-center gap-4">
                   <EditableImage page="home" section="testimonials" field={`t${i}_image`} defaultSrc={defaults.testimonials[`t${i}_image`]} alt="Graduate" className="w-14 h-14 rounded-full object-cover border-2 border-[#f16a2f]/20" />
