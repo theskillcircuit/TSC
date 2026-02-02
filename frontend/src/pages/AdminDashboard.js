@@ -76,22 +76,22 @@ const AdminDashboard = () => {
       
       if (activeTab === 'overview') {
         const res = await axios.get(`${API}/admin/analytics`, { headers, withCredentials: true });
-        setAnalytics(res.data);
+        setAnalytics(res.data || {});
       } else if (activeTab === 'courses') {
         const res = await axios.get(`${API}/courses?published_only=false`);
-        setCourses(res.data);
+        setCourses(Array.isArray(res.data) ? res.data : []);
       } else if (activeTab === 'students') {
         const res = await axios.get(`${API}/admin/students`, { headers, withCredentials: true });
-        setStudents(res.data);
+        setStudents(Array.isArray(res.data) ? res.data : []);
       } else if (activeTab === 'live-classes') {
         const res = await axios.get(`${API}/live-classes`);
-        setLiveClasses(res.data);
+        setLiveClasses(Array.isArray(res.data) ? res.data : []);
         // Also fetch courses for dropdown
         const coursesRes = await axios.get(`${API}/courses?published_only=false`);
-        setCourses(coursesRes.data);
+        setCourses(Array.isArray(coursesRes.data) ? coursesRes.data : []);
       } else if (activeTab === 'contacts') {
         const res = await axios.get(`${API}/admin/contacts`, { headers, withCredentials: true });
-        setContacts(res.data);
+        setContacts(Array.isArray(res.data) ? res.data : []);
       } else if (activeTab === 'cms') {
         const [homeRes, aboutRes] = await Promise.all([
           axios.get(`${API}/cms/home`),
