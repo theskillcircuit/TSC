@@ -35,11 +35,14 @@ const StudentDashboard = () => {
           axios.get(`${API}/certificates`, { headers, withCredentials: true })
         ]);
 
-        setEnrollments(enrollmentsRes.data);
-        setLiveClasses(classesRes.data);
-        setCertificates(certsRes.data);
+        setEnrollments(Array.isArray(enrollmentsRes.data) ? enrollmentsRes.data : []);
+        setLiveClasses(Array.isArray(classesRes.data) ? classesRes.data : []);
+        setCertificates(Array.isArray(certsRes.data) ? certsRes.data : []);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
+        setEnrollments([]);
+        setLiveClasses([]);
+        setCertificates([]);
         if (error.response?.status === 401) {
           navigate('/login');
         }
