@@ -61,9 +61,11 @@ const HomePage = () => {
     const fetchCourses = async () => {
       try {
         const res = await axios.get(`${API}/courses`);
-        setCourses(res.data.slice(0, 6));
+        const data = Array.isArray(res.data) ? res.data : [];
+        setCourses(data.slice(0, 6));
       } catch (error) {
         console.error('Error fetching courses:', error);
+        setCourses([]);
       }
     };
     fetchCourses();
