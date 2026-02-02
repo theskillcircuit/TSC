@@ -300,7 +300,7 @@ const CoursesPage = () => {
                     </div>
 
                     {/* Skills */}
-                    {course.skills && course.skills.length > 0 && (
+                    {Array.isArray(course.skills) && course.skills.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5">
                         {course.skills.slice(0, 3).map((skill, idx) => (
                           <span 
