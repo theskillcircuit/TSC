@@ -45,9 +45,11 @@ const CoursesPage = () => {
         setLoading(true);
         const params = activeCategory !== 'all' ? `?category=${activeCategory}` : '';
         const res = await axios.get(`${API}/courses${params}`);
-        setCourses(res.data);
+        const data = Array.isArray(res.data) ? res.data : [];
+        setCourses(data);
       } catch (error) {
         console.error('Error fetching courses:', error);
+        setCourses([]);
       } finally {
         setLoading(false);
       }
