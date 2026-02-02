@@ -426,7 +426,7 @@ const HomePage = () => {
       </section>
 
       {/* Featured Courses Section */}
-      {courses.length > 0 && (
+      {Array.isArray(courses) && courses.length > 0 && (
         <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-12 bg-slate-50" data-testid="courses-section">
           <div className="max-w-7xl mx-auto">
             <motion.div 
