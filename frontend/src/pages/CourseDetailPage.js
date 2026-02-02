@@ -230,7 +230,7 @@ const CourseDetailPage = () => {
               {course.outcomes && course.outcomes.length > 0 && (
                 <div className="bg-white rounded-xl p-6 shadow-sm" data-testid="outcomes-section">
                   <h2 className="font-['Outfit'] text-xl font-bold text-[#053d6c] mb-4">
-                    What You'll Achieve
+                    What You&apos;ll Achieve
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {course.outcomes.map((outcome, idx) => (
@@ -247,7 +247,7 @@ const CourseDetailPage = () => {
               {course.skills && course.skills.length > 0 && (
                 <div className="bg-white rounded-xl p-6 shadow-sm" data-testid="skills-section">
                   <h2 className="font-['Outfit'] text-xl font-bold text-[#053d6c] mb-4">
-                    Skills You'll Gain
+                    Skills You&apos;ll Gain
                   </h2>
                   <div className="flex flex-wrap gap-2">
                     {course.skills.map((skill, idx) => (

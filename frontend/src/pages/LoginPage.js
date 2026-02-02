@@ -184,7 +184,7 @@ const LoginPage = () => {
               Transform Your Career
             </h2>
             <p className="text-slate-300 text-lg max-w-md">
-              Join thousands of successful graduates who've launched their careers with The Skill Circuit.
+              Join thousands of successful graduates who&apos;ve launched their careers with The Skill Circuit.
             </p>
           </div>
         </div>

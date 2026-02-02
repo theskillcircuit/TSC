@@ -127,7 +127,7 @@ const PaymentSuccessPage = () => {
               Payment Failed
             </h1>
             <p className="text-slate-600 mb-6">
-              We couldn't process your payment. Please try again or contact support.
+              We couldn&apos;t process your payment. Please try again or contact support.
             </p>
             
             <div className="space-y-3">
