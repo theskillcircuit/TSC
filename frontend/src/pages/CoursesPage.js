@@ -236,7 +236,7 @@ const CoursesPage = () => {
               variants={staggerContainer}
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
             >
-              {courses.map((course) => (
+              {Array.isArray(courses) && courses.map((course) => (
                 <motion.div 
                   key={course.course_id} 
                   variants={fadeInUp}
