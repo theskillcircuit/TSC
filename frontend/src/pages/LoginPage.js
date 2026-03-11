@@ -9,7 +9,7 @@ import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login, loginWithGoogle } = useAuth();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
