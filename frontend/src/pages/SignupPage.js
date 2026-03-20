@@ -8,7 +8,7 @@ import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 
 const SignupPage = () => {
   const navigate = useNavigate();
-  const { register, loginWithGoogle } = useAuth();
+  const { register } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
