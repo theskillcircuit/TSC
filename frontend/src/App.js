@@ -71,13 +71,6 @@ const MainLayout = ({ children, hideFooter = false }) => {
 
 // App Router Component
 const AppRouter = () => {
-  const location = useLocation();
-  
-  // Handle Google OAuth callback - check for session_id in hash
-  if (location.hash?.includes('session_id=')) {
-    return <AuthCallback />;
-  }
-
   return (
     <>
       <ScrollToTop />
