@@ -1,0 +1,111 @@
+{
+  "brand_identity": {
+    "name": "The Skill Circuit",
+    "tone": "Energetic, Future-Ready, Premium, Student-Centric",
+    "archetype": "The Performance Pro (Athletic/Skill) + Vibrant Play",
+    "theme_strategy": "Light Mode Dominant with Deep Blue (#053d6c) Contrast Sections. No boring white pages - use soft grays and dynamic layouts."
+  },
+  "typography": {
+    "headings": {
+      "font_family": "Outfit, sans-serif",
+      "weights": ["600", "800"],
+      "tracking": "tracking-tight",
+      "usage": "Use for all H1-H3. H1 must be text-5xl to text-7xl. H2 must be text-4xl.",
+      "style": "Bold, expressive, tight letter spacing. Avoid 'Inter' for headings."
+    },
+    "body": {
+      "font_family": "Plus Jakarta Sans, sans-serif",
+      "weights": ["400", "500"],
+      "usage": "Use for all paragraphs and UI text. Keep readable with relaxed line-height."
+    },
+    "accent": {
+      "font_family": "JetBrains Mono, monospace",
+      "usage": "Use for tags, code snippets, and 'tech' accents."
+    }
+  },
+  "colors": {
+    "primary": {
+      "main": "#053d6c",
+      "light": "#0a4e8a",
+      "dark": "#032b4d",
+      "usage": "Primary buttons, dark section backgrounds, text headings."
+    },
+    "accent": {
+      "main": "#f16a2f",
+      "light": "#ff8f5c",
+      "glow": "rgba(241, 106, 47, 0.4)",
+      "usage": "CTAs, highlights, gradients, floating elements."
+    },
+    "neutral": {
+      "background": "#ffffff",
+      "surface": "#f8fafc",
+      "border": "#e2e8f0",
+      "text_primary": "#0f172a",
+      "text_secondary": "#64748b"
+    },
+    "gradients": {
+      "hero_glow": "radial-gradient(circle at 50% 50%, rgba(241, 106, 47, 0.15), transparent 70%)",
+      "brand_mesh": "linear-gradient(135deg, #053d6c 0%, #0a4e8a 100%)",
+      "text_gradient": "bg-gradient-to-r from-[#053d6c] to-[#f16a2f] bg-clip-text text-transparent"
+    }
+  },
+  "layout_strategies": {
+    "spacing": {
+      "base": "Use 2-3x more spacing than standard. Section padding: py-20 or py-32.",
+      "container": "max-w-7xl mx-auto px-6 md:px-12"
+    },
+    "grids": {
+      "bento_grid": "Use for features/courses. Mix col-span-1 and col-span-2 items. Avoid uniform grids.",
+      "tetris_hero": "Asymmetric grid for hero images. Main image col-span-8, secondary col-span-4."
+    },
+    "z_index": "Layer elements. Use negative z-index for decorative blobs/gradients."
+  },
+  "components": {
+    "buttons": {
+      "primary": "Pill-shaped or rounded-lg. Bg-accent (#f16a2f). Hover: Lift + Shadow. MUST have 'pulse-orange' animation on key CTAs.",
+      "secondary": "Border-2 border-primary text-primary. Hover: Bg-primary/5.",
+      "ghost": "Text-primary hover:text-accent transition-colors."
+    },
+    "cards": {
+      "style": "Glassmorphism (bg-white/70 backdrop-blur-xl) OR Clean White with heavy shadow (shadow-xl).",
+      "hover": "Translate-y-2 and shadow-2xl transition-all duration-300.",
+      "border": "1px solid rgba(255,255,255,0.5) or border-slate-100."
+    },
+    "sections": {
+      "hero": "Full height (min-h-[90vh]). Split layout or centered with massive typography. Animated background elements.",
+      "marquee": "Use for partners. Infinite scroll text or icons. Opacity 50%.",
+      "testimonials": "Carousel or Masonry grid. Focus on student faces."
+    }
+  },
+  "motion": {
+    "library": "framer-motion",
+    "rules": [
+      "All interactive elements must have hover states.",
+      "Scroll animations: Fade up + Scale in for cards.",
+      "Hero: Staggered entrance for text and images.",
+      "Parallax: Use for background shapes/blobs."
+    ],
+    "micro_interactions": "Buttons scale 0.98 on click. Links have underline slide animation."
+  },
+  "assets": {
+    "images": {
+      "hero_main": "https://images.unsplash.com/photo-1760062744828-64801c56a039?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "hero_secondary": "https://images.pexels.com/photos/159775/library-la-trobe-study-students-159775.jpeg",
+      "success_story": "https://images.pexels.com/photos/7988238/pexels-photo-7988238.jpeg",
+      "community": "https://images.unsplash.com/photo-1754531976838-436a70636c96?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "abstract_bg": "https://images.unsplash.com/photo-1660058550844-02d4eaa79667?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "course_bg": "https://images.unsplash.com/photo-1657983794129-95527a7b7738?crop=entropy&cs=srgb&fm=jpg&q=85"
+    },
+    "icons": "Use lucide-react. For 'tech' vibes, use simple geometric icons."
+  },
+  "universal_rules": [
+    "DO NOT use generic 'Inter' font for headings.",
+    "DO NOT use full-screen gradients that look cheap. Use subtle mesh or radial glows.",
+    "DO NOT center everything. Use asymmetry for interest.",
+    "ALWAYS add 'data-testid' to interactive elements.",
+    "ALWAYS use 'sonner' for toasts.",
+    "Ensure text contrast meets WCAG AA standards (4.5:1).",
+    "Mobile First: Stack grids on mobile, expand on desktop."
+  ],
+  "instructions_to_main_agent": "You are building the 'The Skill Circuit' redesign. Focus on the Home page first. Make it LONG (scrolling) with at least 6-7 distinct sections (Hero, Partners, Stats, Courses, Features, Testimonials, CTA). Use the provided images. Implement the 'pulse' animation for the main CTA. Use the 'Outfit' font for all headings. Make it look like a Series A startup, not a school project."
+}

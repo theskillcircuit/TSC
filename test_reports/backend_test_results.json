@@ -1,0 +1,124 @@
+{
+  "summary": {
+    "total_tests": 19,
+    "passed_tests": 19,
+    "success_rate": 100.0,
+    "timestamp": "2026-01-25T19:17:27.992824"
+  },
+  "test_results": [
+    {
+      "test": "Backend Health Check",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:26.801293"
+    },
+    {
+      "test": "Seed Database",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:26.839808"
+    },
+    {
+      "test": "Get All Courses",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:26.876535"
+    },
+    {
+      "test": "Get Neo Courses",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:26.916435"
+    },
+    {
+      "test": "Get Sprint Courses",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:26.955067"
+    },
+    {
+      "test": "Get Pathway Courses",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:26.988516"
+    },
+    {
+      "test": "Get Launchpad Courses",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.027916"
+    },
+    {
+      "test": "Get Courses for ID Test",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.067196"
+    },
+    {
+      "test": "Get Course Details",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.108125"
+    },
+    {
+      "test": "Get Home CMS Content",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.152330"
+    },
+    {
+      "test": "Get About CMS Content",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.229330"
+    },
+    {
+      "test": "Submit Contact Form",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.296377"
+    },
+    {
+      "test": "Get Live Classes",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.332248"
+    },
+    {
+      "test": "User Registration",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.589696"
+    },
+    {
+      "test": "Get Current User Info",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.626698"
+    },
+    {
+      "test": "Admin Login",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.881997"
+    },
+    {
+      "test": "Get Admin Analytics",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.920253"
+    },
+    {
+      "test": "Get Students List",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.953059"
+    },
+    {
+      "test": "Get Contacts List",
+      "success": true,
+      "details": "Status: 200",
+      "timestamp": "2026-01-25T19:17:27.992180"
+    }
+  ]
+}
