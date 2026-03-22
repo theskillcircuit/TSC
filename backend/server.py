@@ -1209,6 +1209,7 @@ app.add_middleware(
         "http://localhost:3000",
         "https://tsc-64ds07oz2-the-skill-circuit.vercel.app",
         "https://tsc-zeta.vercel.app",
+        "https://tsc-5wjzzrrp1-the-skill-circuit.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
